@@ -1,0 +1,10 @@
+{
+    "IGN": {
+    },
+    "memo": {
+        "IGN": "key:DiscordのuserId, value:WoWsのIGN(一応IGNじゃなくても登録できる)",
+        "result": "key:IGN, value:{date:result_value}"
+    },
+    "result": {
+    }
+}
