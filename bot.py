@@ -48,7 +48,7 @@ async def on_message(message):
 
                 else:
                     res = "{} 本日のくじはすでに引かれています!\
-                    \nあなたの  与ダメージは{}です。".format(mention, today_result)
+                    \nあなたの与ダメージは{}です。".format(mention, today_result)
 
             else:
                 res = "{} DiscordIDとIGNの紐づけが完了していません。先に\

@@ -1,10 +1,17 @@
 {
     "IGN": {
+        "discord_id": "WoWs_In_Game_Name"
+    },
+    "Lottery_results": {
+        "IGN": {
+            "yyyy/mm/dd": {
+                "result": 100000,
+                "time": "HH:MM:SS"
+            }
+        }
     },
     "memo": {
         "IGN": "key:DiscordのuserId, value:WoWsのIGN(一応IGNじゃなくても登録できる)",
         "result": "key:IGN, value:{date:result_value}"
-    },
-    "result": {
     }
 }
