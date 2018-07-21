@@ -22,12 +22,13 @@ async def on_message(message):
         if re.search("setIGN", message.content):
             split_content = message.content.split()
             if len(split_content) >= 2:
-                dump = JH.set_ign(message.author.id, split_content[1])
-                if dump is True:
-                    res = "{} IGNを[{ign}]で登録しました。"\
+                change = JH.set_ign(message.author.id, split_content[1])
+                if change is True:
+                    res = "{} IGNを[{ign}]に変更しました。"\
                     .format(mention, ign=split_content[1])
                 else:
-                    res = "{} IGNの登録に失敗しました".format(mention)
+                    res = "{} IGNを[{ign}]で登録しました。"\
+                    .format(mention, ign=split_content[1])
 
             else:
                 res = "{} IGNを判別できませんでした。入力に誤りがないか確認してください。\
@@ -54,7 +55,6 @@ async def on_message(message):
                 res = "{} DiscordIDとIGNの紐づけが完了していません。先に\
                       \n```!setIGN WoWs_In_Game_Name```\
                       \nでIGNの登録をお願いします。".format(mention)
-
 
             await CLIENT.send_message(message.channel, res)
 

@@ -1,36 +1,42 @@
-"""This is a module which handles jsonfile"""
+"""This is a discord-lottery-Bot's module that handles json file"""
 import json
 import datetime
 
 class JsonHandler():
-    """jsonファイルの読み書きを行うクラス
+    """Class to read and write json file.
     """
     def __init__(self):
         self.json_file = 'userData.json'
 
     def set_ign(self, discord_id, ign):
-        """ignとDiscordIdを紐付して保存
-           discordのユーザーIDがkey, ignがvalue
+        """Save IGN with DiscordId.
+           Key: DiscordId ,Value: IGN
+           Return value:
+               dump = boolean
         """
-        dump = True
-        try:
-            json_data = self._open_json()
-            json_data["IGN"][discord_id] = ign
-            with open(self.json_file, 'w') as json_file:
-                json.dump(json_data, json_file, ensure_ascii=False, indent=4,\
-                sort_keys=True, separators=(',', ': '))
+        json_data = self._open_json()
 
-        except json.decoder.JSONDecodeError:
-            now = datetime.datetime.now()
-            print("set_ignエラー:JSONDecodeError\n({}:{}) [{}]"\
-            .format(discord_id, ign, now))
-            dump = False
+        if discord_id in json_data["IGN"]:
+            change = True
+            former_ign = json_data["IGN"][discord_id]
+            if former_ign in json_data["Lottery_results"]:
+                user_result = json_data["Lottery_results"][former_ign]
+                del json_data["Lottery_results"][former_ign]
+                json_data["Lottery_results"][ign] = user_result
 
-        return dump
+        else:
+            change = False
+
+        json_data["IGN"][discord_id] = ign
+        with open(self.json_file, 'w') as json_file:
+            json.dump(json_data, json_file, ensure_ascii=False, indent=4,\
+            sort_keys=True, separators=(',', ': '))
+
+        return change
 
 
     def add_result(self, discord_id, result):
-        """くじの結果をjsonファイルに保存
+        """Save lottery result in json file.
            "Lottery_results":{"IGN":{"日付":"くじの結果"}}
         """
         now = datetime.datetime.now()
@@ -52,9 +58,16 @@ class JsonHandler():
 
         return now.strftime('%m/%d %H:%M:%S')
 
+    def add_ranking(self, discord_id, result):
+        """Save the top 20 data in the json file.
+        """
+        pass
+
     def check_today_result(self, discord_id):
-        """今日のくじが引かれているかを調べる
-           既にひかれている場合はresult=result, ひかれていない場合はresult = none
+        """Confirm whether today's lottery result is saved or not.
+           Return value:
+               has_ign = boolean
+               If already saved result=result, if not result = none
         """
         now = datetime.datetime.now()
         ign = self._check_ign(discord_id)
@@ -66,13 +79,15 @@ class JsonHandler():
             if ign in json_data["Lottery_results"]:
                 datetime_key = now.date().strftime('%Y/%m/%d')
                 if datetime_key in json_data["Lottery_results"][ign]:
-                    today_result = json_data["Lottery_results"][ign][datetime_key]["result"]
+                    today_result = json_data["Lottery_results"][ign]\
+                                            [datetime_key]["result"]
 
         return has_ign, today_result
 
     def _check_ign(self, discord_id):
-        """渡されたDiscordIdをキーに保存されたIGNが存在するか調べる
-           戻り値はhas_ign = boolean, ign = (str or none)
+        """Check if IGN is saved with discordId.
+           Return value:
+               ign = (str or None)
         """
         with open(self.json_file, 'r') as json_file:
             json_data = json.load(json_file)
@@ -84,9 +99,14 @@ class JsonHandler():
         return ign
 
     def _open_json(self):
-        """jsonファイルを開いてdict型で返す
+        """Open json file and return it as dict type.
         """
         with open(self.json_file, 'r') as json_file:
-            json_data = json.load(json_file)
+            try:
+                json_data = json.load(json_file)
+            except json.decoder.JSONDecodeError as error:
+                print("Error occurred")
+                print("type:" + str(type(error)))
+                print("args:" + str(error.args))
 
         return json_data
