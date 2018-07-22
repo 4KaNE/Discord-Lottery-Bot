@@ -84,6 +84,73 @@ class JsonHandler():
 
         return has_ign, today_result
 
+    def calc_previous_day_stats(self):
+        """Calculate statistics of the previous day
+            Return pd_stats_dict
+                pd_stats_dict = {
+                    "pd_date": "2018/7/22",
+                    "players": 50,
+                    "first": {
+                        "id": "xxxxxxxxxxxxxxxxxx",
+                        "result": 300000
+                    },
+                    "second": {
+                        "id": "xxxxxxxxxxxxxxxxxx",
+                        "result": 250000
+                    },
+                    "third": {
+                        "id": "xxxxxxxxxxxxxxxxxx",
+                        "result": 200000
+                    },
+                    "fourth": {
+                        "id": "xxxxxxxxxxxxxxxxxx",
+                        "result": 150000
+                    },
+                    "fifth": {
+                        "id": "xxxxxxxxxxxxxxxxxx",
+                        "result": 100000
+                    }
+                }
+        """
+        pd_stats_dict = {}
+        pd_key = "2018/07/22"
+        pd_stats_dict["pd_date"] = pd_key
+        pd_result_dict = {}
+        json_data = self._open_json()
+        for ign in json_data["Lottery_results"].keys():
+            pd_userdata = json_data["Lottery_results"][ign].get(pd_key)
+            if pd_userdata is not None:
+                pd_result_dict[ign] = pd_userdata["result"]
+
+        pd_result_list = pd_result_dict.values()
+        pd_result_list = list(pd_result_list)
+        pd_stats_dict["players"] = len(pd_result_list)
+        pd_result_list = list(set(pd_result_list))#重複要素の削除
+        pd_result_list.sort()
+        pd_result_list.reverse()#数値が大きい順
+        
+        count = 0
+        while count < 5:
+            result_value = pd_result_list[count]
+            result_keys = [k for k, v in pd_result_dict.items() if v == result_value]
+            for result_ign in result_keys:
+                count += 1
+                user_dict = {}
+                user_dict["id"] = self._check_discord_id(result_ign)
+                user_dict["result"] = result_value
+                if count == 1:
+                    pd_stats_dict["first"] = user_dict
+                elif count == 2:
+                    pd_stats_dict["second"] = user_dict
+                elif count == 3:
+                    pd_stats_dict["third"] = user_dict
+                elif count == 4:
+                    pd_stats_dict["fourth"] = user_dict
+                elif count == 5:
+                    pd_stats_dict["fifth"] = user_dict
+
+        return pd_stats_dict
+
     def _check_ign(self, discord_id):
         """Check if IGN is saved with discordId.
            Return value:
@@ -98,6 +165,19 @@ class JsonHandler():
 
         return ign
 
+    def _check_discord_id(self, ign):
+        """Return discordId from ign
+        """
+        json_data = self._open_json()
+        try:
+            discord_id = [k for k, v in json_data["IGN"].items() if v == ign][0]
+        except IndexError:
+            discord_id = None
+        
+        return discord_id
+        
+
+
     def _open_json(self):
         """Open json file and return it as dict type.
         """
@@ -110,3 +190,7 @@ class JsonHandler():
                 print("args:" + str(error.args))
 
         return json_data
+
+if __name__ == '__main__':
+    JH = JsonHandler()
+    print(JH._check_discord_id("Akane_Kotonoha"))
