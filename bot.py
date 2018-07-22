@@ -8,6 +8,7 @@ from numpy.random import randint
 import discord
 
 import json_handler
+import output_battle_results as OBR
 
 CLIENT = discord.Client()
 CHANNEL = discord.Object(id='')
@@ -19,7 +20,7 @@ async def execute_regurary():
     """
     while True:
         now = datetime.datetime.now()
-        if now.hour == 21 and now.minute == 19:
+        if now.hour == 0 and now.minute == 0:
             if now.date().strftime('%Y/%m/%d') == "2018/7/22":
                 msg = """@everyone
                 \nプレイベントスタートです!
@@ -102,8 +103,10 @@ async def on_message(message):
                 if today_result is None:
                     result = randint(1, 300001)
                     date = JH.add_result(message.author.id, result)
+                    buttle_results = OBR.output_battle_results(result)
                     res = "{} 本日のくじを引きました！ [{}]\
-                    \nあなたの与ダメージは{}です！".format(mention, date, result)
+                    \nあなたの与ダメージは{}です！\
+                    \n{}".format(mention, date, result, buttle_results)
 
                 else:
                     res = "{} 本日のくじはすでに引かれています!\

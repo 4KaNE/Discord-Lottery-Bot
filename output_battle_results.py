@@ -4,7 +4,7 @@ import random
 # loading table
 table_data = {}
 try:
-    with open('./output_battle_table.json', 'r') as fc:
+    with open('./output_battle_table.json', 'r', encoding="utf-8_sig") as fc:
         table_data = json.load(fc)
 except json.JSONDecodeError as e:
     print('JSONDecodeError: ', e)
