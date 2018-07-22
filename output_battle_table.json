@@ -1,322 +1,1260 @@
 {
-	"tiers": [
-		{
-			"tier": "1",
-			"min": "0",
-			"max": "30000"
-		},
-		{
-			"tier": "2",
-			"min": "30001",
-			"max": "60000"
-		},
-		{
-			"tier": "3",
-			"min": "60001",
-			"max": "90000"
-		},
-		{
-			"tier": "4",
-			"min": "90001",
-			"max": "120000"
-		},
-		{
-			"tier": "5",
-			"min": "120001",
-			"max": "150000"
-		},
-		{
-			"tier": "6",
-			"min": "150001",
-			"max": "180000"
-		},
-		{
-			"tier": "7",
-			"min": "180001",
-			"max": "210000"
-		},
-		{
-			"tier": "8",
-			"min": "210001",
-			"max": "240000"
-		},
-		{
-			"tier": "9",
-			"min": "240001",
-			"max": "270000"
-		},
-		{
-			"tier": "10",
-			"min": "270001",
-			"max": "300000"
-		}
-	],
-	"ships": [
-		{
-			"nation": "日本",
-			"tier": "1",
-			"kind": "巡洋",
-			"name": "橋立",
-			"hp": "5150"
-		},
-		{
-			"nation": "日本",
-			"tier": "2",
-			"kind": "巡洋",
-			"name": "筑摩",
-			"hp": "18700"
-		},
-		{
-			"nation": "日本",
-			"tier": "2",
-			"kind": "駆逐",
-			"name": "海風",
-			"hp": "10300"
-		},
-		{
-			"nation": "日本",
-			"tier": "3",
-			"kind": "戦艦",
-			"name": "河内",
-			"hp": "38700"
-		},
-		{
-			"nation": "日本",
-			"tier": "3",
-			"kind": "巡洋",
-			"name": "天龍",
-			"hp": "17700"
-		},
-		{
-			"nation": "日本",
-			"tier": "3",
-			"kind": "駆逐",
-			"name": "若竹",
-			"hp": "8200"
-		},
-		{
-			"nation": "日本",
-			"tier": "4",
-			"kind": "空母",
-			"name": "鳳翔",
-			"hp": "31800"
-		},
-		{
-			"nation": "日本",
-			"tier": "4",
-			"kind": "戦艦",
-			"name": "妙義",
-			"hp": "45700"
-		},
-		{
-			"nation": "日本",
-			"tier": "4",
-			"kind": "巡洋",
-			"name": "球磨",
-			"hp": "24200"
-		},
-		{
-			"nation": "日本",
-			"tier": "4",
-			"kind": "駆逐",
-			"name": "磯風",
-			"hp": "10300"
-		},
-		{
-			"nation": "日本",
-			"tier": "5",
-			"kind": "空母",
-			"name": "瑞鳳",
-			"hp": "36500"
-		},
-		{
-			"nation": "日本",
-			"tier": "5",
-			"kind": "戦艦",
-			"name": "金剛",
-			"hp": "54100"
-		},
-		{
-			"nation": "日本",
-			"tier": "5",
-			"kind": "巡洋",
-			"name": "古鷹",
-			"hp": "30700"
-		},
-		{
-			"nation": "日本",
-			"tier": "5",
-			"kind": "駆逐",
-			"name": "睦月",
-			"hp": "11300"
-		},
-		{
-			"nation": "日本",
-			"tier": "5",
-			"kind": "駆逐",
-			"name": "峯風",
-			"hp": "10900"
-		},
-		{
-			"nation": "日本",
-			"tier": "6",
-			"kind": "空母",
-			"name": "龍驤",
-			"hp": "39600"
-		},
-		{
-			"nation": "日本",
-			"tier": "6",
-			"kind": "戦艦",
-			"name": "扶桑",
-			"hp": "57100"
-		},
-		{
-			"nation": "日本",
-			"tier": "6",
-			"kind": "巡洋",
-			"name": "青葉",
-			"hp": "31900"
-		},
-		{
-			"nation": "日本",
-			"tier": "6",
-			"kind": "駆逐",
-			"name": "吹雪",
-			"hp": "12900"
-		},
-		{
-			"nation": "日本",
-			"tier": "6",
-			"kind": "駆逐",
-			"name": "初春",
-			"hp": "11700"
-		},
-		{
-			"nation": "日本",
-			"tier": "7",
-			"kind": "空母",
-			"name": "飛龍",
-			"hp": "45600"
-		},
-		{
-			"nation": "日本",
-			"tier": "7",
-			"kind": "戦艦",
-			"name": "長門",
-			"hp": "65000"
-		},
-		{
-			"nation": "日本",
-			"tier": "7",
-			"kind": "巡洋",
-			"name": "妙高",
-			"hp": "39200"
-		},
-		{
-			"nation": "日本",
-			"tier": "7",
-			"kind": "駆逐",
-			"name": "暁",
-			"hp": "13100"
-		},
-		{
-			"nation": "日本",
-			"tier": "7",
-			"kind": "駆逐",
-			"name": "白露",
-			"hp": "12800"
-		},
-		{
-			"nation": "日本",
-			"tier": "8",
-			"kind": "空母",
-			"name": "翔鶴",
-			"hp": "51400"
-		},
-		{
-			"nation": "日本",
-			"tier": "8",
-			"kind": "戦艦",
-			"name": "天城",
-			"hp": "66300"
-		},
-		{
-			"nation": "日本",
-			"tier": "8",
-			"kind": "巡洋",
-			"name": "最上",
-			"hp": "39100"
-		},
-		{
-			"nation": "日本",
-			"tier": "8",
-			"kind": "駆逐",
-			"name": "陽炎",
-			"hp": "15100"
-		},
-		{
-			"nation": "日本",
-			"tier": "8",
-			"kind": "駆逐",
-			"name": "秋月",
-			"hp": "20400"
-		},
-		{
-			"nation": "日本",
-			"tier": "9",
-			"kind": "空母",
-			"name": "大鳳",
-			"hp": "57100"
-		},
-		{
-			"nation": "日本",
-			"tier": "9",
-			"kind": "戦艦",
-			"name": "出雲",
-			"hp": "78900"
-		},
-		{
-			"nation": "日本",
-			"tier": "9",
-			"kind": "巡洋",
-			"name": "伊吹",
-			"hp": "39000"
-		},
-		{
-			"nation": "日本",
-			"tier": "9",
-			"kind": "駆逐",
-			"name": "夕雲",
-			"hp": "15500"
-		},
-		{
-			"nation": "日本",
-			"tier": "10",
-			"kind": "空母",
-			"name": "白龍",
-			"hp": "63100"
-		},
-		{
-			"nation": "日本",
-			"tier": "10",
-			"kind": "戦艦",
-			"name": "大和",
-			"hp": "97200"
-		},
-		{
-			"nation": "日本",
-			"tier": "10",
-			"kind": "巡洋",
-			"name": "蔵王",
-			"hp": "40800"
-		},
-		{
-			"nation": "日本",
-			"tier": "10",
-			"kind": "駆逐",
-			"name": "島風",
-			"hp": "17900"
-		}
-	]
+    "ships": [
+        {
+            "hp": "5150",
+            "kind": "巡洋",
+            "name": "橋立",
+            "nation": "日本",
+            "tier": "1"
+        },
+        {
+            "hp": "18700",
+            "kind": "巡洋",
+            "name": "筑摩",
+            "nation": "日本",
+            "tier": "2"
+        },
+        {
+            "hp": "10300",
+            "kind": "駆逐",
+            "name": "海風",
+            "nation": "日本",
+            "tier": "2"
+        },
+        {
+            "hp": "38700",
+            "kind": "戦艦",
+            "name": "河内",
+            "nation": "日本",
+            "tier": "3"
+        },
+        {
+            "hp": "17700",
+            "kind": "巡洋",
+            "name": "天龍",
+            "nation": "日本",
+            "tier": "3"
+        },
+        {
+            "hp": "8200",
+            "kind": "駆逐",
+            "name": "若竹",
+            "nation": "日本",
+            "tier": "3"
+        },
+        {
+            "hp": "31800",
+            "kind": "空母",
+            "name": "鳳翔",
+            "nation": "日本",
+            "tier": "4"
+        },
+        {
+            "hp": "45700",
+            "kind": "戦艦",
+            "name": "妙義",
+            "nation": "日本",
+            "tier": "4"
+        },
+        {
+            "hp": "24200",
+            "kind": "巡洋",
+            "name": "球磨",
+            "nation": "日本",
+            "tier": "4"
+        },
+        {
+            "hp": "10300",
+            "kind": "駆逐",
+            "name": "磯風",
+            "nation": "日本",
+            "tier": "4"
+        },
+        {
+            "hp": "36500",
+            "kind": "空母",
+            "name": "瑞鳳",
+            "nation": "日本",
+            "tier": "5"
+        },
+        {
+            "hp": "54100",
+            "kind": "戦艦",
+            "name": "金剛",
+            "nation": "日本",
+            "tier": "5"
+        },
+        {
+            "hp": "30700",
+            "kind": "巡洋",
+            "name": "古鷹",
+            "nation": "日本",
+            "tier": "5"
+        },
+        {
+            "hp": "11300",
+            "kind": "駆逐",
+            "name": "睦月",
+            "nation": "日本",
+            "tier": "5"
+        },
+        {
+            "hp": "10900",
+            "kind": "駆逐",
+            "name": "峯風",
+            "nation": "日本",
+            "tier": "5"
+        },
+        {
+            "hp": "39600",
+            "kind": "空母",
+            "name": "龍驤",
+            "nation": "日本",
+            "tier": "6"
+        },
+        {
+            "hp": "57100",
+            "kind": "戦艦",
+            "name": "扶桑",
+            "nation": "日本",
+            "tier": "6"
+        },
+        {
+            "hp": "31900",
+            "kind": "巡洋",
+            "name": "青葉",
+            "nation": "日本",
+            "tier": "6"
+        },
+        {
+            "hp": "12900",
+            "kind": "駆逐",
+            "name": "吹雪",
+            "nation": "日本",
+            "tier": "6"
+        },
+        {
+            "hp": "11700",
+            "kind": "駆逐",
+            "name": "初春",
+            "nation": "日本",
+            "tier": "6"
+        },
+        {
+            "hp": "45600",
+            "kind": "空母",
+            "name": "飛龍",
+            "nation": "日本",
+            "tier": "7"
+        },
+        {
+            "hp": "65000",
+            "kind": "戦艦",
+            "name": "長門",
+            "nation": "日本",
+            "tier": "7"
+        },
+        {
+            "hp": "39200",
+            "kind": "巡洋",
+            "name": "妙高",
+            "nation": "日本",
+            "tier": "7"
+        },
+        {
+            "hp": "13100",
+            "kind": "駆逐",
+            "name": "暁",
+            "nation": "日本",
+            "tier": "7"
+        },
+        {
+            "hp": "12800",
+            "kind": "駆逐",
+            "name": "白露",
+            "nation": "日本",
+            "tier": "7"
+        },
+        {
+            "hp": "51400",
+            "kind": "空母",
+            "name": "翔鶴",
+            "nation": "日本",
+            "tier": "8"
+        },
+        {
+            "hp": "66300",
+            "kind": "戦艦",
+            "name": "天城",
+            "nation": "日本",
+            "tier": "8"
+        },
+        {
+            "hp": "39100",
+            "kind": "巡洋",
+            "name": "最上",
+            "nation": "日本",
+            "tier": "8"
+        },
+        {
+            "hp": "15100",
+            "kind": "駆逐",
+            "name": "陽炎",
+            "nation": "日本",
+            "tier": "8"
+        },
+        {
+            "hp": "20400",
+            "kind": "駆逐",
+            "name": "秋月",
+            "nation": "日本",
+            "tier": "8"
+        },
+        {
+            "hp": "57100",
+            "kind": "空母",
+            "name": "大鳳",
+            "nation": "日本",
+            "tier": "9"
+        },
+        {
+            "hp": "78900",
+            "kind": "戦艦",
+            "name": "出雲",
+            "nation": "日本",
+            "tier": "9"
+        },
+        {
+            "hp": "39000",
+            "kind": "巡洋",
+            "name": "伊吹",
+            "nation": "日本",
+            "tier": "9"
+        },
+        {
+            "hp": "15500",
+            "kind": "駆逐",
+            "name": "夕雲",
+            "nation": "日本",
+            "tier": "9"
+        },
+        {
+            "hp": "63100",
+            "kind": "空母",
+            "name": "白龍",
+            "nation": "日本",
+            "tier": "10"
+        },
+        {
+            "hp": "97200",
+            "kind": "戦艦",
+            "name": "大和",
+            "nation": "日本",
+            "tier": "10"
+        },
+        {
+            "hp": "40800",
+            "kind": "巡洋",
+            "name": "蔵王",
+            "nation": "日本",
+            "tier": "10"
+        },
+        {
+            "hp": "17900",
+            "kind": "駆逐",
+            "name": "島風",
+            "nation": "日本",
+            "tier": "10"
+        },
+        {
+            "hp": "4950",
+            "kind": "巡洋",
+            "name": "エリー",
+            "nation": "アメリカ",
+            "tier": "1"
+        },
+        {
+            "hp": "18400",
+            "kind": "巡洋",
+            "name": "チェスター",
+            "nation": "アメリカ",
+            "tier": "2"
+        },
+        {
+            "hp": "9100",
+            "kind": "駆逐",
+            "name": "サンプソン",
+            "nation": "アメリカ",
+            "tier": "2"
+        },
+        {
+            "hp": "29000",
+            "kind": "戦艦",
+            "name": "サウスカロライナ",
+            "nation": "アメリカ",
+            "tier": "3"
+        },
+        {
+            "hp": "29500",
+            "kind": "巡洋",
+            "name": "セントルイス",
+            "nation": "アメリカ",
+            "tier": "3"
+        },
+        {
+            "hp": "8900",
+            "kind": "駆逐",
+            "name": "ウィックス",
+            "nation": "アメリカ",
+            "tier": "3"
+        },
+        {
+            "hp": "33700",
+            "kind": "空母",
+            "name": "ラングレー",
+            "nation": "アメリカ",
+            "tier": "4"
+        },
+        {
+            "hp": "43800",
+            "kind": "戦艦",
+            "name": "ワイオミング",
+            "nation": "アメリカ",
+            "tier": "4"
+        },
+        {
+            "hp": "24000",
+            "kind": "巡洋",
+            "name": "フェニックス",
+            "nation": "アメリカ",
+            "tier": "4"
+        },
+        {
+            "hp": "10900",
+            "kind": "駆逐",
+            "name": "クレムソン",
+            "nation": "アメリカ",
+            "tier": "4"
+        },
+        {
+            "hp": "36500",
+            "kind": "空母",
+            "name": "ボーグ",
+            "nation": "アメリカ",
+            "tier": "5"
+        },
+        {
+            "hp": "49100",
+            "kind": "戦艦",
+            "name": "ニューヨーク",
+            "nation": "アメリカ",
+            "tier": "5"
+        },
+        {
+            "hp": "26800",
+            "kind": "巡洋",
+            "name": "オマハ",
+            "nation": "アメリカ",
+            "tier": "5"
+        },
+        {
+            "hp": "13100",
+            "kind": "駆逐",
+            "name": "ニコラス",
+            "nation": "アメリカ",
+            "tier": "5"
+        },
+        {
+            "hp": "36700",
+            "kind": "空母",
+            "name": "インディペンデンス",
+            "nation": "アメリカ",
+            "tier": "6"
+        },
+        {
+            "hp": "53200",
+            "kind": "戦艦",
+            "name": "ニューメキシコ",
+            "nation": "アメリカ",
+            "tier": "6"
+        },
+        {
+            "hp": "32700",
+            "kind": "巡洋",
+            "name": "ペンサコーラ",
+            "nation": "アメリカ",
+            "tier": "6"
+        },
+        {
+            "hp": "28300",
+            "kind": "巡洋",
+            "name": "ダラス",
+            "nation": "アメリカ",
+            "tier": "6"
+        },
+        {
+            "hp": "11500",
+            "kind": "駆逐",
+            "name": "ファラガット",
+            "nation": "アメリカ",
+            "tier": "6"
+        },
+        {
+            "hp": "44900",
+            "kind": "空母",
+            "name": "レンジャー",
+            "nation": "アメリカ",
+            "tier": "7"
+        },
+        {
+            "hp": "59300",
+            "kind": "戦艦",
+            "name": "コロラド",
+            "nation": "アメリカ",
+            "tier": "7"
+        },
+        {
+            "hp": "35000",
+            "kind": "巡洋",
+            "name": "ニューオリンズ",
+            "nation": "アメリカ",
+            "tier": "7"
+        },
+        {
+            "hp": "33300",
+            "kind": "巡洋",
+            "name": "ヘレナ",
+            "nation": "アメリカ",
+            "tier": "7"
+        },
+        {
+            "hp": "14100",
+            "kind": "駆逐",
+            "name": "マハン",
+            "nation": "アメリカ",
+            "tier": "7"
+        },
+        {
+            "hp": "57300",
+            "kind": "空母",
+            "name": "レキシントン",
+            "nation": "アメリカ",
+            "tier": "8"
+        },
+        {
+            "hp": "66000",
+            "kind": "戦艦",
+            "name": "ノースカロライナ",
+            "nation": "アメリカ",
+            "tier": "8"
+        },
+        {
+            "hp": "42400",
+            "kind": "巡洋",
+            "name": "ボルチモア",
+            "nation": "アメリカ",
+            "tier": "8"
+        },
+        {
+            "hp": "36900",
+            "kind": "巡洋",
+            "name": "クリーブランド",
+            "nation": "アメリカ",
+            "tier": "8"
+        },
+        {
+            "hp": "15400",
+            "kind": "駆逐",
+            "name": "ベンソン",
+            "nation": "アメリカ",
+            "tier": "8"
+        },
+        {
+            "hp": "56300",
+            "kind": "空母",
+            "name": "エセックス",
+            "nation": "アメリカ",
+            "tier": "9"
+        },
+        {
+            "hp": "79000",
+            "kind": "戦艦",
+            "name": "アイオワ",
+            "nation": "アメリカ",
+            "tier": "9"
+        },
+        {
+            "hp": "47800",
+            "kind": "巡洋",
+            "name": "バッファロー",
+            "nation": "アメリカ",
+            "tier": "9"
+        },
+        {
+            "hp": "43600",
+            "kind": "巡洋",
+            "name": "シアトル",
+            "nation": "アメリカ",
+            "tier": "9"
+        },
+        {
+            "hp": "17100",
+            "kind": "駆逐",
+            "name": "フレッチャー",
+            "nation": "アメリカ",
+            "tier": "9"
+        },
+        {
+            "hp": "67600",
+            "kind": "空母",
+            "name": "ミッドウェー",
+            "nation": "アメリカ",
+            "tier": "10"
+        },
+        {
+            "hp": "96300",
+            "kind": "戦艦",
+            "name": "モンタナ",
+            "nation": "アメリカ",
+            "tier": "10"
+        },
+        {
+            "hp": "50600",
+            "kind": "巡洋",
+            "name": "デモイン",
+            "nation": "アメリカ",
+            "tier": "10"
+        },
+        {
+            "hp": "45400",
+            "kind": "巡洋",
+            "name": "ウースター",
+            "nation": "アメリカ",
+            "tier": "10"
+        },
+        {
+            "hp": "19400",
+            "kind": "駆逐",
+            "name": "ギアリング",
+            "nation": "アメリカ",
+            "tier": "10"
+        },
+        {
+            "hp": "4550",
+            "kind": "巡洋",
+            "name": "ORLAN",
+            "nation": "ソ連",
+            "tier": "1"
+        },
+        {
+            "hp": "14500",
+            "kind": "巡洋",
+            "name": "NOVIK",
+            "nation": "ソ連",
+            "tier": "2"
+        },
+        {
+            "hp": "7800",
+            "kind": "駆逐",
+            "name": "STOROZHEBOI",
+            "nation": "ソ連",
+            "tier": "2"
+        },
+        {
+            "hp": "23000",
+            "kind": "巡洋",
+            "name": "BOGATYR",
+            "nation": "ソ連",
+            "tier": "3"
+        },
+        {
+            "hp": "9700",
+            "kind": "駆逐",
+            "name": "DERZKI",
+            "nation": "ソ連",
+            "tier": "3"
+        },
+        {
+            "hp": "24600",
+            "kind": "巡洋",
+            "name": "SVIETLAMA",
+            "nation": "ソ連",
+            "tier": "4"
+        },
+        {
+            "hp": "10300",
+            "kind": "駆逐",
+            "name": "IZAYASLAV",
+            "nation": "ソ連",
+            "tier": "4"
+        },
+        {
+            "hp": "26200",
+            "kind": "巡洋",
+            "name": "KIROV",
+            "nation": "ソ連",
+            "tier": "5"
+        },
+        {
+            "hp": "12700",
+            "kind": "駆逐",
+            "name": "PODVISKY",
+            "nation": "ソ連",
+            "tier": "5"
+        },
+        {
+            "hp": "30800",
+            "kind": "巡洋",
+            "name": "BUDYONNY",
+            "nation": "ソ連",
+            "tier": "6"
+        },
+        {
+            "hp": "14100",
+            "kind": "駆逐",
+            "name": "GNEVNY",
+            "nation": "ソ連",
+            "tier": "6"
+        },
+        {
+            "hp": "32200",
+            "kind": "巡洋",
+            "name": "SHCHORS",
+            "nation": "ソ連",
+            "tier": "7"
+        },
+        {
+            "hp": "15100",
+            "kind": "駆逐",
+            "name": "MINSK",
+            "nation": "ソ連",
+            "tier": "7"
+        },
+        {
+            "hp": "37000",
+            "kind": "巡洋",
+            "name": "CHAPAYEV",
+            "nation": "ソ連",
+            "tier": "8"
+        },
+        {
+            "hp": "16200",
+            "kind": "駆逐",
+            "name": "KIEV",
+            "nation": "ソ連",
+            "tier": "8"
+        },
+        {
+            "hp": "16100",
+            "kind": "駆逐",
+            "name": "OGNEVOI",
+            "nation": "ソ連",
+            "tier": "8"
+        },
+        {
+            "hp": "43400",
+            "kind": "巡洋",
+            "name": "DM.DONSKOI",
+            "nation": "ソ連",
+            "tier": "9"
+        },
+        {
+            "hp": "21800",
+            "kind": "駆逐",
+            "name": "TASHKENT",
+            "nation": "ソ連",
+            "tier": "9"
+        },
+        {
+            "hp": "18800",
+            "kind": "駆逐",
+            "name": "UDALOI",
+            "nation": "ソ連",
+            "tier": "9"
+        },
+        {
+            "hp": "65400",
+            "kind": "巡洋",
+            "name": "MOSKVA",
+            "nation": "ソ連",
+            "tier": "10"
+        },
+        {
+            "hp": "22500",
+            "kind": "駆逐",
+            "name": "KHABAROVSK",
+            "nation": "ソ連",
+            "tier": "10"
+        },
+        {
+            "hp": "20900",
+            "kind": "駆逐",
+            "name": "GROZOVOI",
+            "nation": "ソ連",
+            "tier": "10"
+        },
+        {
+            "hp": "4500",
+            "kind": "巡洋",
+            "name": "HERMELIN",
+            "nation": "ドイツ",
+            "tier": "1"
+        },
+        {
+            "hp": "17100",
+            "kind": "巡洋",
+            "name": "DRESDEN",
+            "nation": "ドイツ",
+            "tier": "2"
+        },
+        {
+            "hp": "7700",
+            "kind": "駆逐",
+            "name": "V-25",
+            "nation": "ドイツ",
+            "tier": "2"
+        },
+        {
+            "hp": "35400",
+            "kind": "戦艦",
+            "name": "NASSAU",
+            "nation": "ドイツ",
+            "tier": "3"
+        },
+        {
+            "hp": "18300",
+            "kind": "巡洋",
+            "name": "KOLBERG",
+            "nation": "ドイツ",
+            "tier": "3"
+        },
+        {
+            "hp": "11000",
+            "kind": "駆逐",
+            "name": "G-101",
+            "nation": "ドイツ",
+            "tier": "3"
+        },
+        {
+            "hp": "46400",
+            "kind": "戦艦",
+            "name": "KAISER",
+            "nation": "ドイツ",
+            "tier": "4"
+        },
+        {
+            "hp": "22700",
+            "kind": "巡洋",
+            "name": "KARLSRUHE",
+            "nation": "ドイツ",
+            "tier": "4"
+        },
+        {
+            "hp": "10300",
+            "kind": "駆逐",
+            "name": "V-170",
+            "nation": "ドイツ",
+            "tier": "4"
+        },
+        {
+            "hp": "47100",
+            "kind": "戦艦",
+            "name": "KOENIG",
+            "nation": "ドイツ",
+            "tier": "5"
+        },
+        {
+            "hp": "24300",
+            "kind": "巡洋",
+            "name": "KOENIGSBERG",
+            "nation": "ドイツ",
+            "tier": "5"
+        },
+        {
+            "hp": "11300",
+            "kind": "駆逐",
+            "name": "T-22",
+            "nation": "ドイツ",
+            "tier": "5"
+        },
+        {
+            "hp": "51600",
+            "kind": "戦艦",
+            "name": "BAYERN",
+            "nation": "ドイツ",
+            "tier": "6"
+        },
+        {
+            "hp": "27000",
+            "kind": "巡洋",
+            "name": "NUERNBERG",
+            "nation": "ドイツ",
+            "tier": "6"
+        },
+        {
+            "hp": "16500",
+            "kind": "駆逐",
+            "name": "ERNST GAEDE",
+            "nation": "ドイツ",
+            "tier": "6"
+        },
+        {
+            "hp": "58200",
+            "kind": "戦艦",
+            "name": "GNEISENAU",
+            "nation": "ドイツ",
+            "tier": "7"
+        },
+        {
+            "hp": "32600",
+            "kind": "巡洋",
+            "name": "YORCK",
+            "nation": "ドイツ",
+            "tier": "7"
+        },
+        {
+            "hp": "17500",
+            "kind": "駆逐",
+            "name": "LEBERECHT MAASS",
+            "nation": "ドイツ",
+            "tier": "7"
+        },
+        {
+            "hp": "69200",
+            "kind": "戦艦",
+            "name": "BISMARCK",
+            "nation": "ドイツ",
+            "tier": "8"
+        },
+        {
+            "hp": "43800",
+            "kind": "巡洋",
+            "name": "ADMIRAL HIPPER",
+            "nation": "ドイツ",
+            "tier": "8"
+        },
+        {
+            "hp": "19500",
+            "kind": "駆逐",
+            "name": "Z-23",
+            "nation": "ドイツ",
+            "tier": "8"
+        },
+        {
+            "hp": "84300",
+            "kind": "戦艦",
+            "name": "FRIEDRICH DER GROSSE",
+            "nation": "ドイツ",
+            "tier": "9"
+        },
+        {
+            "hp": "49500",
+            "kind": "巡洋",
+            "name": "ROON",
+            "nation": "ドイツ",
+            "tier": "9"
+        },
+        {
+            "hp": "19900",
+            "kind": "駆逐",
+            "name": "Z-46",
+            "nation": "ドイツ",
+            "tier": "9"
+        },
+        {
+            "hp": "105800",
+            "kind": "戦艦",
+            "name": "GROSSER KURFUERST",
+            "nation": "ドイツ",
+            "tier": "10"
+        },
+        {
+            "hp": "51900",
+            "kind": "巡洋",
+            "name": "HINDENBURG",
+            "nation": "ドイツ",
+            "tier": "10"
+        },
+        {
+            "hp": "20300",
+            "kind": "駆逐",
+            "name": "Z-52",
+            "nation": "ドイツ",
+            "tier": "10"
+        },
+        {
+            "hp": "6450",
+            "kind": "巡洋",
+            "name": "BLACK SWAN",
+            "nation": "イギリス",
+            "tier": "1"
+        },
+        {
+            "hp": "20300",
+            "kind": "巡洋",
+            "name": "WEYMOUTH",
+            "nation": "イギリス",
+            "tier": "2"
+        },
+        {
+            "hp": "38100",
+            "kind": "戦艦",
+            "name": "BELLEROPHON",
+            "nation": "イギリス",
+            "tier": "3"
+        },
+        {
+            "hp": "19000",
+            "kind": "巡洋",
+            "name": "CALEDON",
+            "nation": "イギリス",
+            "tier": "3"
+        },
+        {
+            "hp": "42700",
+            "kind": "戦艦",
+            "name": "ORION",
+            "nation": "イギリス",
+            "tier": "4"
+        },
+        {
+            "hp": "20900",
+            "kind": "巡洋",
+            "name": "DANAE",
+            "nation": "イギリス",
+            "tier": "4"
+        },
+        {
+            "hp": "47100",
+            "kind": "戦艦",
+            "name": "IRON DUKE",
+            "nation": "イギリス",
+            "tier": "5"
+        },
+        {
+            "hp": "27100",
+            "kind": "巡洋",
+            "name": "EMERALD",
+            "nation": "イギリス",
+            "tier": "5"
+        },
+        {
+            "hp": "55300",
+            "kind": "戦艦",
+            "name": "QUEEN ELIZABETH",
+            "nation": "イギリス",
+            "tier": "6"
+        },
+        {
+            "hp": "28700",
+            "kind": "巡洋",
+            "name": "LEANDER",
+            "nation": "イギリス",
+            "tier": "6"
+        },
+        {
+            "hp": "60500",
+            "kind": "戦艦",
+            "name": "KING GEORGE V",
+            "nation": "イギリス",
+            "tier": "7"
+        },
+        {
+            "hp": "31400",
+            "kind": "巡洋",
+            "name": "FIJI",
+            "nation": "イギリス",
+            "tier": "7"
+        },
+        {
+            "hp": "60500",
+            "kind": "戦艦",
+            "name": "MONARCH",
+            "nation": "イギリス",
+            "tier": "8"
+        },
+        {
+            "hp": "36400",
+            "kind": "巡洋",
+            "name": "EDINBURGH",
+            "nation": "イギリス",
+            "tier": "8"
+        },
+        {
+            "hp": "67900",
+            "kind": "戦艦",
+            "name": "LION",
+            "nation": "イギリス",
+            "tier": "9"
+        },
+        {
+            "hp": "44900",
+            "kind": "巡洋",
+            "name": "NEPTUNE",
+            "nation": "イギリス",
+            "tier": "9"
+        },
+        {
+            "hp": "82900",
+            "kind": "戦艦",
+            "name": "CONQUEROR",
+            "nation": "イギリス",
+            "tier": "10"
+        },
+        {
+            "hp": "43300",
+            "kind": "巡洋",
+            "name": "MINOTAUR",
+            "nation": "イギリス",
+            "tier": "10"
+        },
+        {
+            "hp": "7400",
+            "kind": "巡洋",
+            "name": "BOUGAINVILLE",
+            "nation": "フランス",
+            "tier": "1"
+        },
+        {
+            "hp": "20100",
+            "kind": "巡洋",
+            "name": "JURIEN DE LA GRAVIERE",
+            "nation": "フランス",
+            "tier": "2"
+        },
+        {
+            "hp": "35000",
+            "kind": "戦艦",
+            "name": "TURENNE",
+            "nation": "フランス",
+            "tier": "3"
+        },
+        {
+            "hp": "20300",
+            "kind": "巡洋",
+            "name": "FRIANT",
+            "nation": "フランス",
+            "tier": "3"
+        },
+        {
+            "hp": "41000",
+            "kind": "戦艦",
+            "name": "COURBET",
+            "nation": "フランス",
+            "tier": "4"
+        },
+        {
+            "hp": "26700",
+            "kind": "巡洋",
+            "name": "DUGUAY-TROUIN",
+            "nation": "フランス",
+            "tier": "4"
+        },
+        {
+            "hp": "41700",
+            "kind": "戦艦",
+            "name": "BRETAGNE",
+            "nation": "フランス",
+            "tier": "5"
+        },
+        {
+            "hp": "26500",
+            "kind": "巡洋",
+            "name": "EMILE BERTIN",
+            "nation": "フランス",
+            "tier": "5"
+        },
+        {
+            "hp": "48300",
+            "kind": "戦艦",
+            "name": "NORMANDIE",
+            "nation": "フランス",
+            "tier": "6"
+        },
+        {
+            "hp": "27300",
+            "kind": "巡洋",
+            "name": "LA GALISSONNIERE",
+            "nation": "フランス",
+            "tier": "6"
+        },
+        {
+            "hp": "53400",
+            "kind": "戦艦",
+            "name": "LYON",
+            "nation": "フランス",
+            "tier": "7"
+        },
+        {
+            "hp": "35600",
+            "kind": "巡洋",
+            "name": "ALGERIE",
+            "nation": "フランス",
+            "tier": "7"
+        },
+        {
+            "hp": "63700",
+            "kind": "戦艦",
+            "name": "RICHELIEU",
+            "nation": "フランス",
+            "tier": "8"
+        },
+        {
+            "hp": "38000",
+            "kind": "巡洋",
+            "name": "CHARLES MARTEL",
+            "nation": "フランス",
+            "tier": "8"
+        },
+        {
+            "hp": "74700",
+            "kind": "戦艦",
+            "name": "ALSACE",
+            "nation": "フランス",
+            "tier": "9"
+        },
+        {
+            "hp": "40900",
+            "kind": "巡洋",
+            "name": "SAINT-LOUIS",
+            "nation": "フランス",
+            "tier": "9"
+        },
+        {
+            "hp": "92400",
+            "kind": "戦艦",
+            "name": "REPUBLIQUE",
+            "nation": "フランス",
+            "tier": "10"
+        },
+        {
+            "hp": "53300",
+            "kind": "巡洋",
+            "name": "HENRI IV",
+            "nation": "フランス",
+            "tier": "10"
+        },
+        {
+            "hp": "4900",
+            "kind": "巡洋",
+            "name": "CHENG AN",
+            "nation": "パンジア",
+            "tier": "1"
+        },
+        {
+            "hp": "7700",
+            "kind": "駆逐",
+            "name": "LONG JIANG",
+            "nation": "パンジア",
+            "tier": "2"
+        },
+        {
+            "hp": "8700",
+            "kind": "駆逐",
+            "name": "PHRA RUANG",
+            "nation": "パンジア",
+            "tier": "3"
+        },
+        {
+            "hp": "10600",
+            "kind": "駆逐",
+            "name": "SHEN YANG",
+            "nation": "パンジア",
+            "tier": "4"
+        },
+        {
+            "hp": "12500",
+            "kind": "駆逐",
+            "name": "JIAN WEI",
+            "nation": "パンジア",
+            "tier": "5"
+        },
+        {
+            "hp": "14100",
+            "kind": "駆逐",
+            "name": "FU SHUN",
+            "nation": "パンジア",
+            "tier": "6"
+        },
+        {
+            "hp": "14300",
+            "kind": "駆逐",
+            "name": "GADJAH MADAH",
+            "nation": "パンジア",
+            "tier": "7"
+        },
+        {
+            "hp": "15500",
+            "kind": "駆逐",
+            "name": "HSIEN YANG",
+            "nation": "パンジア",
+            "tier": "8"
+        },
+        {
+            "hp": "17100",
+            "kind": "駆逐",
+            "name": "CHUNG MU",
+            "nation": "パンジア",
+            "tier": "9"
+        },
+        {
+            "hp": "18500",
+            "kind": "駆逐",
+            "name": "YUEYANG",
+            "nation": "パンジア",
+            "tier": "10"
+        }
+    ],
+    "tiers": [
+        {
+            "max": "30000",
+            "min": "0",
+            "tier": "1"
+        },
+        {
+            "max": "60000",
+            "min": "30001",
+            "tier": "2"
+        },
+        {
+            "max": "90000",
+            "min": "60001",
+            "tier": "3"
+        },
+        {
+            "max": "120000",
+            "min": "90001",
+            "tier": "4"
+        },
+        {
+            "max": "150000",
+            "min": "120001",
+            "tier": "5"
+        },
+        {
+            "max": "180000",
+            "min": "150001",
+            "tier": "6"
+        },
+        {
+            "max": "210000",
+            "min": "180001",
+            "tier": "7"
+        },
+        {
+            "max": "240000",
+            "min": "210001",
+            "tier": "8"
+        },
+        {
+            "max": "270000",
+            "min": "240001",
+            "tier": "9"
+        },
+        {
+            "max": "300000",
+            "min": "270001",
+            "tier": "10"
+        }
+    ]
 }
