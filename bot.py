@@ -75,7 +75,7 @@ async def on_ready():
 async def on_message(message):
     """コメント監視
     """
-    if message.content.startswith("!"):
+    if message.content.startswith("!") and message.channel.id == '':
         mention = "<@" + message.author.id + ">"
         if re.search("setIGN", message.content):
             split_content = message.content.split()
@@ -121,4 +121,4 @@ async def on_message(message):
             print(res)
 
 CLIENT.loop.create_task(execute_regurary())
-CLIENT.run("")
+CLIENT.run("Token")
