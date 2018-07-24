@@ -93,27 +93,13 @@ class JsonHandler():
                     "first": {
                         "id": "xxxxxxxxxxxxxxxxxx",
                         "result": 300000
-                    },
-                    "second": {
-                        "id": "xxxxxxxxxxxxxxxxxx",
-                        "result": 250000
-                    },
-                    "third": {
-                        "id": "xxxxxxxxxxxxxxxxxx",
-                        "result": 200000
-                    },
-                    "fourth": {
-                        "id": "xxxxxxxxxxxxxxxxxx",
-                        "result": 150000
-                    },
-                    "fifth": {
-                        "id": "xxxxxxxxxxxxxxxxxx",
-                        "result": 100000
                     }
-                }
+                    2nd3rd4th5th}
         """
         pd_stats_dict = {}
-        pd_key = "2018/07/22"
+        now = datetime.datetime.now()
+        yesterday = now - datetime.timedelta(days=1)
+        pd_key = yesterday.strftime('%Y/%m/%d') 
         pd_stats_dict["pd_date"] = pd_key
         pd_result_dict = {}
         json_data = self._open_json()
@@ -193,4 +179,4 @@ class JsonHandler():
 
 if __name__ == '__main__':
     JH = JsonHandler()
-    print(JH._check_discord_id("Akane_Kotonoha"))
+    print(JH.calc_previous_day_stats())
