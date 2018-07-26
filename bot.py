@@ -45,13 +45,14 @@ async def execute_regurary():
                 \n3. <@{}> {}ダメージ
                 \n4. <@{}> {}ダメージ
                 \n5. <@{}> {}ダメージ
-                \nプレイベント終了まで後5日
+                \nプレイベント終了まで後{}日
                 """.format(pd_stats_dict["pd_date"], pd_stats_dict["players"],\
                 pd_stats_dict["first"]["id"], pd_stats_dict["first"]["result"],\
                 pd_stats_dict["second"]["id"], pd_stats_dict["second"]["result"],\
                 pd_stats_dict["third"]["id"], pd_stats_dict["third"]["result"],\
                 pd_stats_dict["fourth"]["id"], pd_stats_dict["fourth"]["result"],\
-                pd_stats_dict["fifth"]["id"], pd_stats_dict["fifth"]["result"])
+                pd_stats_dict["fifth"]["id"], pd_stats_dict["fifth"]["result"],\
+                pd_stats_dict["days_left"])
 
             try:
                 await CLIENT.send_message(CHANNEL, msg)

@@ -7,6 +7,8 @@ class JsonHandler():
     """
     def __init__(self):
         self.json_file = 'userData.json'
+        self.first_day = datetime.datetime.strptime('2018/7/20', '%Y/%m/%d') 
+        self.last_day = datetime.datetime.strptime('2018/7/28', '%Y/%m/%d')
 
     def set_ign(self, discord_id, ign):
         """Save IGN with DiscordId.
@@ -90,6 +92,7 @@ class JsonHandler():
                 pd_stats_dict = {
                     "pd_date": "2018/7/22",
                     "players": 50,
+                    "days_left",
                     "first": {
                         "id": "xxxxxxxxxxxxxxxxxx",
                         "result": 300000
@@ -101,6 +104,8 @@ class JsonHandler():
         yesterday = now - datetime.timedelta(days=1)
         pd_key = yesterday.strftime('%Y/%m/%d') 
         pd_stats_dict["pd_date"] = pd_key
+        days_left = (self.last_day - now).days + 1
+        pd_stats_dict["days_left"] = days_left
         pd_result_dict = {}
         json_data = self._open_json()
         for ign in json_data["Lottery_results"].keys():
