@@ -139,8 +139,71 @@ class JsonHandler():
                     pd_stats_dict["fourth"] = user_dict
                 elif count == 5:
                     pd_stats_dict["fifth"] = user_dict
+                else:
+                    pass
 
         return pd_stats_dict
+
+    def period_stats(self):
+        """Infomation statistics of the event period
+            Return period_stats_dict
+                period_stats_dict = {
+                    "players": 50,
+                    "number_of_lotteries": 
+                    "first": {
+                        "id": "xxxxxxxxxxxxxxxxxx",
+                        "result": 300000
+                    }
+                    2nd3rd4th5th}
+        """
+        period_stats_dict = {}
+        result_list = []
+        result_dict = {}
+        date_key_list = ["2018/07/22", "2018/07/23", "2018/07/24", "2018/07/25", "2018/07/26", "2018/07/27"]
+        json_data = self._open_json()
+        period_stats_dict["players"] = len(json_data["Lottery_results"])
+        for ign in json_data["Lottery_results"].keys():
+            for date_key in date_key_list:
+                date_userdata = json_data["Lottery_results"][ign].get(date_key)
+                if date_userdata is not None:
+                    result_list.append(date_userdata["result"])
+                    if str(date_userdata["result"]) in result_dict:
+                        ign_list = result_dict[str(date_userdata["result"])]
+                        ign_list.append(ign)
+                        result_dict[str(date_userdata["result"])] = ign_list
+                        print("重複", date_userdata["result"])
+                    else:
+                        ign_list = []
+                        ign_list.append(ign)
+                        result_dict[str(date_userdata["result"])] = ign_list
+        
+        period_stats_dict["number_of_lotteries"] = len(result_list)
+        result_list = list(set(result_list))
+        result_list.sort()
+        result_list.reverse()
+
+        count = 0
+        while count < 5:
+            result_key = result_list[count]
+            for result_ign in result_dict[str(result_key)]:
+                count += 1
+                user_dict = {}
+                user_dict["id"] = self._check_discord_id(result_ign)
+                user_dict["result"] = result_key
+                if count == 1:
+                    period_stats_dict["first"] = user_dict
+                elif count == 2:
+                    period_stats_dict["second"] = user_dict
+                elif count == 3:
+                    period_stats_dict["third"] = user_dict
+                elif count == 4:
+                    period_stats_dict["fourth"] = user_dict
+                elif count == 5:
+                    period_stats_dict["fifth"] = user_dict
+                else:
+                    pass
+
+        return period_stats_dict
 
     def _check_ign(self, discord_id):
         """Check if IGN is saved with discordId.
@@ -184,4 +247,4 @@ class JsonHandler():
 
 if __name__ == '__main__':
     JH = JsonHandler()
-    print(JH.calc_previous_day_stats())
+    print(JH.period_stats())
