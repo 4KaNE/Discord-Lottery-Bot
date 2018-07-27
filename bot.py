@@ -34,6 +34,18 @@ async def execute_regurary():
                 \n```!setIGN WoWs_In_Game_Name```
                 \n登録したプレイヤーネームは後から同じコマンドで変更することができます。
                 """
+            elif now.date().strftime('%Y/%m/%d') == "2018/7/28":
+                msg = """@everyone
+                \nプレイベント終了です！
+                \nくじを引いたプレイヤー： {}人
+                \nランキング
+                \n1. <@{}> {}ダメージ
+                \n2. <@{}> {}ダメージ
+                \n3. <@{}> {}ダメージ
+                \n4. <@{}> {}ダメージ
+                \n5. <@{}> {}ダメージ
+                \nおめでとうございます！
+                """
             else:
                 pd_stats_dict = JH.calc_previous_day_stats()
                 msg = """@everyone
