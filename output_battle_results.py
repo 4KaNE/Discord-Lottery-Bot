@@ -15,153 +15,78 @@ except FileNotFoundError as e:
 
 
 # get my tier
-def get_my_tier(damage):
+def get_tier(damage):
     while 1 == 1:
         x = random.choice(table_data['tiers'])
         tier_min = int(x['min'])
         tier_max = int(x['max'])
         if tier_min <= damage <= tier_max:
-            return x['tier']
+            my_tier = int(x['tier'])
+            n = random.choice([1, 2, 3])
+            if n == 1:
+                enemy_min_tier = int(x['1_min'])
+                enemy_max_tier = int(x['1_max'])
+            elif n == 2:
+                enemy_min_tier = int(x['2_min'])
+                enemy_max_tier = int(x['2_max'])
+            else:
+                enemy_min_tier = int(x['3_min'])
+                enemy_max_tier = int(x['3_max'])
+            return my_tier, enemy_min_tier, enemy_max_tier
 
 
 # get my ship
 def get_my_ship(tier):
     ships = []
     for x in table_data['ships']:
-        if tier == x['tier']:
+        if tier == int(x['tier']):
             ships.append(x['name'])
     return random.choice(ships)
 
 
-# get enemy tier
-def get_enemy_tier(tier):
-    out_min_tier = 0
-    out_max_tier = 0
-    if tier == '1':
-        out_min_tier = 1
-        out_max_tier = 1
-    elif tier == '2':
-        n = random.choice([0, 1])
-        if n == 0:
-            out_min_tier = 2
-            out_max_tier = 2
-        else:
-            out_min_tier = 2
-            out_max_tier = 3
-    elif tier == '3':
-        n = random.choice([0, 1])
-        if n == 0:
-            out_min_tier = 2
-            out_max_tier = 3
-        else:
-            out_min_tier = 3
-            out_max_tier = 4
-    elif tier == '4':
-        n = random.choice([0, 1])
-        if n == 0:
-            out_min_tier = 3
-            out_max_tier = 4
-        else:
-            out_min_tier = 4
-            out_max_tier = 5
-    elif tier == '5':
-        n = random.choice([0, 1, 2])
-        if n == 0:
-            out_min_tier = 4
-            out_max_tier = 5
-        elif n == 1:
-            out_min_tier = 5
-            out_max_tier = 6
-        else:
-            out_min_tier = 5
-            out_max_tier = 7
-    elif tier == '6':
-        n = random.choice([0, 1, 2])
-        if n == 0:
-            out_min_tier = 4
-            out_max_tier = 6
-        elif n == 1:
-            out_min_tier = 5
-            out_max_tier = 7
-        else:
-            out_min_tier = 6
-            out_max_tier = 8
-    elif tier == '7':
-        n = random.choice([0, 1, 2])
-        if n == 0:
-            out_min_tier = 5
-            out_max_tier = 7
-        elif n == 1:
-            out_min_tier = 6
-            out_max_tier = 8
-        else:
-            out_min_tier = 7
-            out_max_tier = 9
-    elif tier == '8':
-        n = random.choice([0, 1, 2])
-        if n == 0:
-            out_min_tier = 6
-            out_max_tier = 8
-        elif n == 1:
-            out_min_tier = 7
-            out_max_tier = 9
-        else:
-            out_min_tier = 8
-            out_max_tier = 10
-    elif tier == '9':
-        n = random.choice([0, 1])
-        if n == 0:
-            out_min_tier = 7
-            out_max_tier = 9
-        else:
-            out_min_tier = 8
-            out_max_tier = 10
-    elif tier == '10':
-        n = random.choice([0, 1])
-        if n == 0:
-            out_min_tier = 8
-            out_max_tier = 10
-        else:
-            out_min_tier = 10
-            out_max_tier = 10
-    return out_min_tier, out_max_tier
-
-
-# get damage results
-def get_damage_results(damage, min_tier, max_tier):
-    remains = int(damage)
+# get enemy ships
+def get_enemy_ships(min_tier, max_tier):
     enemy_ships = []
-    pers = list(range(1, 100))
-
-    while remains > 0:
+    while len(enemy_ships) < 12:
         x = random.choice(table_data['ships'])
         tier = int(x['tier'])
         if min_tier <= tier <= max_tier:
-            per_hp_add = random.choice(pers)
-            per_hp_damage = random.choice(pers)
-            ship_hp = int(x['hp'])
-            ship_hp_add = round(int(x['hp_add']) * per_hp_add / 100)
-            ship_damage = round((ship_hp + ship_hp_add) * per_hp_damage / 100)
+            enemy_ships.append(x)
+    return enemy_ships
 
-            remains -= ship_damage
-            ship = x['name']
-            n = random.choice(list(range(1, 100)))
-            if n <= 10:
-                ship += '撃沈'
-            ship += '(' + "{:,}".format(ship_damage) + ')'
 
-            enemy_ships.append(ship)
-    return '、'.join(enemy_ships)
+# get damage results
+def get_damage_results(damage, enemy_ships):
+    remains = int(damage)
+    damage_ships = []
+    pers = list(range(25, 100))
+
+    while remains > 0:
+        x = random.choice(enemy_ships)
+        per_hp = random.choice(pers)
+        ship_damage = round((int(x['hp']) + int(x['hp_add'])) * per_hp / 100)
+        if remains < ship_damage:
+            ship_damage = remains
+        remains -= ship_damage
+        ship = x['name']
+        n = random.choice(list(range(1, 100)))
+        if n <= 10:
+            ship += '撃沈'
+        ship += '(' + "{:,}".format(ship_damage) + ')'
+
+        damage_ships.append(ship)
+    return '、'.join(damage_ships)
 
 
 # output_battle_results
 def output_battle_results(damage):
-    my_tier = get_my_tier(damage)
+    tiers = get_tier(damage)
+    my_tier = tiers[0]
+    enemy_min_tier = tiers[1]
+    enemy_max_tier = tiers[2]
     my_ship = get_my_ship(my_tier)
-    enemy_tiers = get_enemy_tier(my_tier)
-    enemy_min_tier = enemy_tiers[0]
-    enemy_max_tier = enemy_tiers[1]
-    damage_result = get_damage_results(damage, enemy_min_tier, enemy_max_tier)
+    enemy_ships = get_enemy_ships(enemy_min_tier, enemy_max_tier)
+    damage_result = get_damage_results(damage, enemy_ships)
     result = 'あなたの使用艦艇は' + my_ship + 'で、戦果は' + damage_result + 'でした。'
 
     return result
