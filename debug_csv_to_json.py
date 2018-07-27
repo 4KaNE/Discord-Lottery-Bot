@@ -19,6 +19,18 @@ with open('d:/Python/tier_table.csv', 'r') as f:
             raise ValueError("min error!")
         if 0 > int(x['max']):
             raise ValueError("max error!")
+        if 0 > int(x['1_min']):
+            raise ValueError("1_min error!")
+        if 0 > int(x['1_max']):
+            raise ValueError("1_max error!")
+        if 0 > int(x['2_min']):
+            raise ValueError("2_min error!")
+        if 0 > int(x['2_max']):
+            raise ValueError("2_max error!")
+        if 0 > int(x['3_min']):
+            raise ValueError("3_min error!")
+        if 0 > int(x['3_max']):
+            raise ValueError("3_max error!")
 
     # 範囲check
     max_value = 0
@@ -50,7 +62,7 @@ with open('d:/Python/ship_table.csv', 'r') as f:
             raise ValueError("kind error!")
         if 0 == len(x['name']):
             raise ValueError("name error!")
-        if 1 > int(x['hp']) or int(x['hp']) > 110000:
+        if 1 > int(x['hp']) or int(x['hp']) > 250000:
             raise ValueError("hp error!")
         if 0 > int(x['hp_add']) or int(x['hp_add']) > 200000:
             raise ValueError("hp_add error!")
