@@ -21,7 +21,7 @@ async def execute_regurary():
     while True:
         now = datetime.datetime.now()
         if now.hour == 0 and now.minute == 0:
-            if now.date().strftime('%Y/%m/%d') == "2018/7/22":
+            if now.date().strftime('%Y/%m/%d') == "2018/07/22":
                 msg = """@everyone
                 \nプレイベントスタートです!
                 \n
@@ -34,10 +34,12 @@ async def execute_regurary():
                 \n```!setIGN WoWs_In_Game_Name```
                 \n登録したプレイヤーネームは後から同じコマンドで変更することができます。
                 """
-            elif now.date().strftime('%Y/%m/%d') == "2018/7/28":
+            elif now.date().strftime('%Y/%m/%d') == "2018/07/28":
+                period_stats_dict = JH.period_stats()
                 msg = """@everyone
                 \nプレイベント終了です！
                 \nくじを引いたプレイヤー： {}人
+                \nくじが引かれた回数： {}回
                 \nランキング
                 \n1. <@{}> {}ダメージ
                 \n2. <@{}> {}ダメージ
@@ -45,7 +47,13 @@ async def execute_regurary():
                 \n4. <@{}> {}ダメージ
                 \n5. <@{}> {}ダメージ
                 \nおめでとうございます！
-                """
+                """.format(period_stats_dict["players"], period_stats_dict["number_of_lotteries"],\
+                period_stats_dict["first"]["id"], period_stats_dict["first"]["result"],\
+                period_stats_dict["second"]["id"], period_stats_dict["second"]["result"],\
+                period_stats_dict["third"]["id"], period_stats_dict["third"]["result"],\
+                period_stats_dict["fourth"]["id"], period_stats_dict["fourth"]["result"],\
+                period_stats_dict["fifth"]["id"], period_stats_dict["fifth"]["result"])
+
             else:
                 pd_stats_dict = JH.calc_previous_day_stats()
                 msg = """@everyone

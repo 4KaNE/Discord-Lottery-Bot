@@ -149,7 +149,7 @@ class JsonHandler():
             Return period_stats_dict
                 period_stats_dict = {
                     "players": 50,
-                    "Number_of_lotteries"
+                    "number_of_lotteries": 
                     "first": {
                         "id": "xxxxxxxxxxxxxxxxxx",
                         "result": 300000
@@ -159,7 +159,7 @@ class JsonHandler():
         period_stats_dict = {}
         result_list = []
         result_dict = {}
-        date_key_list = ["2018/07/25", "2018/07/26"]
+        date_key_list = ["2018/07/22", "2018/07/23", "2018/07/24", "2018/07/25", "2018/07/26", "2018/07/27"]
         json_data = self._open_json()
         period_stats_dict["players"] = len(json_data["Lottery_results"])
         for ign in json_data["Lottery_results"].keys():
@@ -176,7 +176,8 @@ class JsonHandler():
                         ign_list = []
                         ign_list.append(ign)
                         result_dict[str(date_userdata["result"])] = ign_list
-
+        
+        period_stats_dict["number_of_lotteries"] = len(result_list)
         result_list = list(set(result_list))
         result_list.sort()
         result_list.reverse()
