@@ -1,6 +1,7 @@
 """Botメインプログラム"""
 import asyncio
 import re
+import configparser
 import datetime
 
 import aiohttp
@@ -10,8 +11,12 @@ import discord
 import json_handler
 import output_battle_results as OBR
 
+INIFILE = configparser.SafeConfigParser()
+INIFILE.read('config.ini', 'UTF-8')
+BOT_TOKEN = INIFILE.get('Discord', 'BOT_TOKEN')
+CHANNEL_ID = INIFILE.get('Discord', 'CHANNEL')
 CLIENT = discord.Client()
-CHANNEL = discord.Object(id='')
+CHANNEL = discord.Object(id=CHANNEL_ID)
 JH = json_handler.JsonHandler()
 
 @CLIENT.event
@@ -96,7 +101,7 @@ async def on_ready():
 async def on_message(message):
     """コメント監視
     """
-    if message.content.startswith("!") and message.channel.id == '':
+    if message.content.startswith("!") and message.channel.id == 'CHANNEL_ID':
         mention = "<@" + message.author.id + ">"
         if re.search("setIGN", message.content):
             split_content = message.content.split()
@@ -142,4 +147,4 @@ async def on_message(message):
             print(res)
 
 CLIENT.loop.create_task(execute_regurary())
-CLIENT.run("Token")
+CLIENT.run(BOT_TOKEN)
