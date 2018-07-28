@@ -16,7 +16,9 @@ except FileNotFoundError as e:
 
 # get my tier
 def get_tier(damage):
-    while 1 == 1:
+    loop_counter = 0
+    while loop_counter < 100:
+        loop_counter += 1    # 無限ループ防止用
         x = random.choice(table_data['tiers'])
         tier_min = int(x['min'])
         tier_max = int(x['max'])
@@ -46,35 +48,81 @@ def get_my_ship(tier):
 
 # get enemy ships
 def get_enemy_ships(min_tier, max_tier):
+    enemy_cv_ships = []
     enemy_ships = []
-    while len(enemy_ships) < 12:
+    loop_counter = 0
+    while len(enemy_ships) < 12 and loop_counter < 1000:
+        loop_counter += 1    # 無限ループ防止用
         x = random.choice(table_data['ships'])
+        kind = x['kind']
+        if kind == '空母':
+            if len(enemy_cv_ships) > 0:
+                # 当面空母は１隻限定
+                continue
         tier = int(x['tier'])
         if min_tier <= tier <= max_tier:
+            if kind == '空母':
+                enemy_cv_ships.append(x)
             enemy_ships.append(x)
     return enemy_ships
+
+
+class ShipDamageClass:
+    def __init__(self):
+        self.name = ''
+        self.hp_total = 0
+        self.hp_remains = 0
+        self.damage = 0
+        self.sink = ''
 
 
 # get damage results
 def get_damage_results(damage, enemy_ships):
     remains = int(damage)
-    damage_ships = []
-    pers = list(range(25, 100))
+    pers = list(range(1, 100))
+    target_ships = []
+    target_ships_hp_total = 0
+    for ship in enemy_ships:
+        x = ShipDamageClass()
+        x.name = ship['name']
+        x.hp_total = round(int(ship['hp']) + int(ship['hp_add']))
+        x.hp_remains = x.hp_total
+        x.damage = 0
+        target_ships.append(x)
+        target_ships_hp_total += x.hp_total
 
-    while remains > 0:
-        x = random.choice(enemy_ships)
+    if target_ships_hp_total < remains:
+        return ' 敵艦全滅(' + str(target_ships_hp_total) + ')以上のダメージを叩き出しました。神かよ'
+
+    loop_counter = 0
+    while remains > 0 and loop_counter < 100:
+        loop_counter += 1    # 無限ループ防止用
+        x = random.choice(target_ships)
+        if x.hp_remains < 0:
+            continue
+
         per_hp = random.choice(pers)
-        ship_damage = round((int(x['hp']) + int(x['hp_add'])) * per_hp / 100)
+        ship_damage = round(x.hp_total * per_hp / 100)
+        if x.hp_remains < ship_damage:
+            ship_damage = x.hp_remains
         if remains < ship_damage:
             ship_damage = remains
-        remains -= ship_damage
-        ship = x['name']
-        n = random.choice(list(range(1, 100)))
-        if n <= 10:
-            ship += '撃沈'
-        ship += '(' + "{:,}".format(ship_damage) + ')'
 
-        damage_ships.append(ship)
+        x.damage += ship_damage
+        x.hp_remains -= ship_damage
+        remains -= ship_damage
+
+        n = random.choice(pers)
+        if n <= 10:
+            # 攻撃１回につき10%の確率で撃沈
+            x.sink = '撃沈'
+
+    damage_ships = []
+    for x in target_ships:
+        if x.damage > 0:
+            s = x.name + x.sink + '(' + "{:,}".format(x.damage) + ')'
+            damage_ships.append(s)
+
     return '、'.join(damage_ships)
 
 
