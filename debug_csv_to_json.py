@@ -6,7 +6,7 @@ json_data = {}
 
 # tier_table.csvの読み込み
 json_list = []
-with open('d:/Python/tier_table.csv', 'r') as f:
+with open('../tier_table.csv', 'r') as f:
     # list of dictの作成
     for line in csv.DictReader(f):
         json_list.append(line)
@@ -46,7 +46,8 @@ with open('d:/Python/tier_table.csv', 'r') as f:
 
 # ship_table.csvの読み込み
 json_list = []
-with open('d:/Python/ship_table.csv', 'r') as f:
+with open('../ship_table.csv', 'r') as f:
+    kind_list = ['空母', '戦艦', '巡洋', '駆逐']
     # list of dictの作成
     for line in csv.DictReader(f):
         json_list.append(line)
@@ -60,6 +61,8 @@ with open('d:/Python/ship_table.csv', 'r') as f:
             raise ValueError("tier error!")
         if 0 == len(x['kind']):
             raise ValueError("kind error!")
+        if x['kind'] not in kind_list:
+            raise ValueError("kind_list error!")
         if 0 == len(x['name']):
             raise ValueError("name error!")
         if 1 > int(x['hp']) or int(x['hp']) > 250000:
