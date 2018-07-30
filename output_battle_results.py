@@ -16,25 +16,22 @@ except FileNotFoundError as e:
 
 # get my tier
 def get_tier(damage):
-    loop_counter = 0
-    while loop_counter < 100:
-        loop_counter += 1    # 無限ループ防止用
-        x = random.choice(table_data['tiers'])
-        tier_min = int(x['min'])
-        tier_max = int(x['max'])
-        if tier_min <= damage <= tier_max:
-            my_tier = int(x['tier'])
-            n = random.choice([1, 2, 3])
-            if n == 1:
-                enemy_min_tier = int(x['1_min'])
-                enemy_max_tier = int(x['1_max'])
-            elif n == 2:
-                enemy_min_tier = int(x['2_min'])
-                enemy_max_tier = int(x['2_max'])
-            else:
-                enemy_min_tier = int(x['3_min'])
-                enemy_max_tier = int(x['3_max'])
-            return my_tier, enemy_min_tier, enemy_max_tier
+    # 対象Tierの抽出
+    target_table_data = [x for x in table_data['tiers'] if int(x['min']) <= damage <= int(x['max'])]
+
+    x = random.choice(target_table_data)
+    my_tier = int(x['tier'])
+    n = random.choice([1, 2, 3])
+    if n == 1:
+        enemy_min_tier = int(x['1_min'])
+        enemy_max_tier = int(x['1_max'])
+    elif n == 2:
+        enemy_min_tier = int(x['2_min'])
+        enemy_max_tier = int(x['2_max'])
+    else:
+        enemy_min_tier = int(x['3_min'])
+        enemy_max_tier = int(x['3_max'])
+    return my_tier, enemy_min_tier, enemy_max_tier
 
 
 # get my ship
@@ -47,23 +44,26 @@ def get_my_ship(tier):
 
 
 # get enemy ships
-def get_enemy_ships(min_tier, max_tier):
-    enemy_cv_ships = []
+def get_enemy_ships(my_tier, min_tier, max_tier):
+    # 対象Tierの抽出
+    target_table_data = [x for x in table_data['ships'] if min_tier <= int(x['tier']) <= max_tier]
+
+    enemy_cv_ships_counter = 0
     enemy_ships = []
     loop_counter = 0
     while len(enemy_ships) < 12 and loop_counter < 1000:
         loop_counter += 1    # 無限ループ防止用
-        x = random.choice(table_data['ships'])
+        x = random.choice(target_table_data)
         kind = x['kind']
-        if kind == '空母':
-            if len(enemy_cv_ships) > 0:
-                # 当面空母は１隻限定
-                continue
         tier = int(x['tier'])
-        if min_tier <= tier <= max_tier:
-            if kind == '空母':
-                enemy_cv_ships.append(x)
-            enemy_ships.append(x)
+        if kind == '空母':
+            if enemy_cv_ships_counter > 0 or tier != my_tier:
+                # 当面空母は自分と同Tierの１隻限定
+                continue
+            else:
+                enemy_cv_ships_counter += 1
+
+        enemy_ships.append(x)
     return enemy_ships
 
 
@@ -133,7 +133,7 @@ def output_battle_results(damage):
     enemy_min_tier = tiers[1]
     enemy_max_tier = tiers[2]
     my_ship = get_my_ship(my_tier)
-    enemy_ships = get_enemy_ships(enemy_min_tier, enemy_max_tier)
+    enemy_ships = get_enemy_ships(my_tier, enemy_min_tier, enemy_max_tier)
     damage_result = get_damage_results(damage, enemy_ships)
     result = 'あなたの使用艦艇は' + my_ship + 'で、戦果は' + damage_result + 'でした。'
 
