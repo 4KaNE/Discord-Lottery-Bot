@@ -245,7 +245,19 @@ class JsonHandler():
         return ign
 
     def _check_discord_id(self, ign):
-        """Return discordId from ign
+        """
+        Return discordId from ign.
+        
+        Parameters
+        ----------
+        ign : str
+            User's wows IGN
+            
+        Return
+        ----------
+        discord_id : str
+            User's discord id.
+            If it is not registered, it returns None
         """
         json_data = self._open_json()
         try:
