@@ -90,11 +90,21 @@ class JsonHandler():
         """
         pass
 
-    def check_today_result(self, discord_id):
-        """Confirm whether today's lottery result is saved or not.
-           Return value:
-               has_ign = boolean
-               If already saved result=result, if not result = none
+    def check_today_result(self, discord_id: str) -> bool:
+        """
+        Confirm whether today's lottery result is saved or not.
+
+        Parameters
+        ----------
+        discord_id : str
+            User's discord id
+
+        Return
+        ----------
+        has_ign : bool
+            True if already registered, False otherwise
+        result : int
+            User's lottery result
         """
         now = datetime.datetime.now()
         ign = self._check_ign(discord_id)
