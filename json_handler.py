@@ -48,9 +48,21 @@ class JsonHandler():
         return change
 
 
-    def add_result(self, discord_id, result):
-        """Save lottery result in json file.
-           "Lottery_results":{"IGN":{"日付":"くじの結果"}}
+    def add_result(self, discord_id : str, result : int) -> str:
+        """
+        Save lottery result in json file with discord id.
+        
+        Parameters
+        ----------
+        discord_id : str
+            User's discord id
+        result : int
+            User's lottery result
+        
+        Return
+        ----------
+        result_time : str
+            Date and time when lottery was drawn.
         """
         now = datetime.datetime.now()
         json_data = self._open_json()
@@ -68,8 +80,10 @@ class JsonHandler():
         with open(self.json_file, 'w') as json_file:
             json.dump(json_data, json_file, ensure_ascii=False, indent=4,\
             sort_keys=True, separators=(',', ': '))
+            
+        result_time = now.strftime('%m/%d %H:%M:%S')
 
-        return now.strftime('%m/%d %H:%M:%S')
+        return result_time
 
     def add_ranking(self, discord_id, result):
         """Save the top 20 data in the json file.
