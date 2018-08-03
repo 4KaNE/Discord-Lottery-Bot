@@ -279,8 +279,14 @@ class JsonHandler():
 
 
 
-    def _open_json(self):
-        """Open json file and return it as dict type.
+    def _open_json(self) -> dict:
+        """
+        Open json file and return it as dict type.
+
+        Return
+        ----------
+        json_data : dict
+            Return the contents of the userDict.json as dict
         """
         with open(self.json_file, 'r') as json_file:
             try:
