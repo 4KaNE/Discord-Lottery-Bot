@@ -3,18 +3,29 @@ import json
 import datetime
 
 class JsonHandler():
-    """Class to read and write json file.
+    """
+    Class to read and write json file.
     """
     def __init__(self):
         self.json_file = 'userData.json'
         self.first_day = datetime.datetime.strptime('2018/7/20', '%Y/%m/%d') 
         self.last_day = datetime.datetime.strptime('2018/7/28', '%Y/%m/%d')
 
-    def set_ign(self, discord_id, ign):
-        """Save IGN with DiscordId.
-           Key: DiscordId ,Value: IGN
-           Return value:
-               dump = boolean
+    def set_ign(self, discord_id : str, ign : str) -> bool:
+        """
+        Save IGN with DiscordId.
+        
+        Parameters
+        ----------
+        discord_id : str
+            User's discord id
+        ign : str
+            User's wows IGN
+        
+        Return
+        ----------
+        change : bool
+            Whether or not it is already stored id.
         """
         json_data = self._open_json()
 
