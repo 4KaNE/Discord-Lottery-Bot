@@ -85,10 +85,6 @@ class JsonHandler():
 
         return result_time
 
-    def add_ranking(self, discord_id, result):
-        """Save the top 20 data in the json file.
-        """
-        pass
 
     def check_today_result(self, discord_id: str) -> bool:
         """
