@@ -11,6 +11,7 @@ class JsonHandler():
         self.first_day = datetime.datetime.strptime('2018/7/20', '%Y/%m/%d')
         self.last_day = datetime.datetime.strptime('2018/7/28', '%Y/%m/%d')
 
+
     def set_ign(self, discord_id: str, ign: str) -> bool:
         """
         Save IGN with DiscordId.
@@ -117,6 +118,7 @@ class JsonHandler():
 
         return has_ign, today_result
 
+
     def calc_previous_day_stats(self):
         """
         Calculate statistics of the previous day
@@ -170,6 +172,7 @@ class JsonHandler():
                     pass
 
         return pd_stats_dict
+
 
     def period_stats(self) -> dict:
         """
@@ -230,6 +233,7 @@ class JsonHandler():
 
         return period_stats_dict
 
+
     def _check_ign(self, discord_id: str) -> str:
         """
         Check if IGN is saved with discordId.
@@ -253,6 +257,7 @@ class JsonHandler():
             ign = None
 
         return ign
+
 
     def _check_discord_id(self, ign: str) -> str:
         """
@@ -278,7 +283,6 @@ class JsonHandler():
         return discord_id
 
 
-
     def _open_json(self) -> dict:
         """
         Open json file and return it as dict type.
@@ -297,6 +301,7 @@ class JsonHandler():
                 print("args:" + str(error.args))
 
         return json_data
+
 
 if __name__ == '__main__':
     JH = JsonHandler()
