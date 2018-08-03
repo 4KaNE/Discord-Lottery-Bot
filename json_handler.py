@@ -230,10 +230,20 @@ class JsonHandler():
 
         return period_stats_dict
 
-    def _check_ign(self, discord_id):
-        """Check if IGN is saved with discordId.
-           Return value:
-               ign = (str or None)
+    def _check_ign(self, discord_id : str) -> str:
+        """
+        Check if IGN is saved with discordId.
+
+        Parameters
+        ----------
+        discord_id : str
+            User's discord id
+            
+        Return
+        ----------
+        ign : str
+            User's wows IGN
+            If it is not registered, it returns None
         """
         with open(self.json_file, 'r') as json_file:
             json_data = json.load(json_file)
@@ -244,7 +254,7 @@ class JsonHandler():
 
         return ign
 
-    def _check_discord_id(self, ign):
+    def _check_discord_id(self, ign : str) -> str:
         """
         Return discordId from ign.
         
