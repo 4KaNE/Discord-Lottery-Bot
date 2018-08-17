@@ -1,32 +1,23 @@
 """This is a discord-lottery-Bot's module that handles json file"""
 import json
 import datetime
+import time
 
 class JsonHandler():
+    """Class to read and write json file.
     """
-    Class to read and write json file.
-    """
-    def __init__(self):
+    def __init__(self, logger, config):
         self.json_file = 'userData.json'
-        self.first_day = datetime.datetime.strptime('2018/7/20', '%Y/%m/%d')
-        self.last_day = datetime.datetime.strptime('2018/7/28', '%Y/%m/%d')
+        self.logger = logger
+        self.config = config
+        self.first_day = self.config.kuji_first_day
+        self.last_day = self.config.kuji_last_day
 
-
-    def set_ign(self, discord_id: str, ign: str) -> bool:
-        """
-        Save IGN with DiscordId.
-
-        Parameters
-        ----------
-        discord_id : str
-            User's discord id
-        ign : str
-            User's wows IGN
-
-        Return
-        ----------
-        change : bool
-            Whether or not it is already stored id.
+    def set_ign(self, discord_id, ign):
+        """Save IGN with DiscordId.
+           Key: DiscordId ,Value: IGN
+           Return value:
+               dump = boolean
         """
         json_data = self._open_json()
 
@@ -49,21 +40,9 @@ class JsonHandler():
         return change
 
 
-    def add_result(self, discord_id: str, result: int) -> str:
-        """
-        Save lottery result in json file with discord id.
-
-        Parameters
-        ----------
-        discord_id : str
-            User's discord id
-        result : int
-            User's lottery result
-
-        Return
-        ----------
-        result_time : str
-            Date and time when lottery was drawn.
+    def add_result(self, discord_id, result):
+        """Save lottery result in json file.
+           "Lottery_results":{"IGN":{"日付":"くじの結果"}}
         """
         now = datetime.datetime.now()
         json_data = self._open_json()
@@ -82,26 +61,18 @@ class JsonHandler():
             json.dump(json_data, json_file, ensure_ascii=False, indent=4,\
             sort_keys=True, separators=(',', ': '))
 
-        result_time = now.strftime('%m/%d %H:%M:%S')
+        return now.strftime('%m/%d %H:%M:%S')
 
-        return result_time
-
-
-    def check_today_result(self, discord_id: str) -> bool:
+    def add_ranking(self, discord_id, result):
+        """Save the top 20 data in the json file.
         """
-        Confirm whether today's lottery result is saved or not.
+        pass
 
-        Parameters
-        ----------
-        discord_id : str
-            User's discord id
-
-        Return
-        ----------
-        has_ign : bool
-            True if already registered, False otherwise
-        result : int
-            User's lottery result
+    def check_today_result(self, discord_id):
+        """Confirm whether today's lottery result is saved or not.
+           Return value:
+               has_ign = boolean
+               If already saved result=result, if not result = none
         """
         now = datetime.datetime.now()
         ign = self._check_ign(discord_id)
@@ -118,20 +89,23 @@ class JsonHandler():
 
         return has_ign, today_result
 
-
     def calc_previous_day_stats(self):
-        """
-        Calculate statistics of the previous day
-
-        Return
-        ----------
-        pd_stats_dict : dict
-            Return dict saving yesterday's statistical information
+        """Calculate statistics of the previous day
+            Return pd_stats_dict
+                pd_stats_dict = {
+                    "pd_date": "2018/7/22",
+                    "players": 50,
+                    "days_left",
+                    "first": {
+                        "id": "xxxxxxxxxxxxxxxxxx",
+                        "result": 300000
+                    }
+                    2nd3rd4th5th}
         """
         pd_stats_dict = {}
         now = datetime.datetime.now()
         yesterday = now - datetime.timedelta(days=1)
-        pd_key = yesterday.strftime('%Y/%m/%d')
+        pd_key = yesterday.strftime('%Y/%m/%d') 
         pd_stats_dict["pd_date"] = pd_key
         days_left = (self.last_day - now).days + 1
         pd_stats_dict["days_left"] = days_left
@@ -145,10 +119,10 @@ class JsonHandler():
         pd_result_list = pd_result_dict.values()
         pd_result_list = list(pd_result_list)
         pd_stats_dict["players"] = len(pd_result_list)
-        pd_result_list = list(set(pd_result_list))
+        pd_result_list = list(set(pd_result_list))#重複要素の削除
         pd_result_list.sort()
-        pd_result_list.reverse()
-
+        pd_result_list.reverse()#数値が大きい順
+        
         count = 0
         while count < 5:
             result_value = pd_result_list[count]
@@ -173,21 +147,22 @@ class JsonHandler():
 
         return pd_stats_dict
 
-
-    def period_stats(self) -> dict:
-        """
-        Infomation statistics of the event period
-
-        Return
-        ----------
-        period_stats_dict : dict
-            Return dict saving statistical information during the period.
+    def period_stats(self):
+        """Infomation statistics of the event period
+            Return period_stats_dict
+                period_stats_dict = {
+                    "players": 50,
+                    "number_of_lotteries": 
+                    "first": {
+                        "id": "xxxxxxxxxxxxxxxxxx",
+                        "result": 300000
+                    }
+                    2nd3rd4th5th}
         """
         period_stats_dict = {}
         result_list = []
         result_dict = {}
-        date_key_list = ["2018/07/22", "2018/07/23", "2018/07/24", \
-                         "2018/07/25", "2018/07/26", "2018/07/27"]
+        date_key_list = self.config.kuji_days
         json_data = self._open_json()
         period_stats_dict["players"] = len(json_data["Lottery_results"])
         for ign in json_data["Lottery_results"].keys():
@@ -204,7 +179,7 @@ class JsonHandler():
                         ign_list = []
                         ign_list.append(ign)
                         result_dict[str(date_userdata["result"])] = ign_list
-
+        
         period_stats_dict["number_of_lotteries"] = len(result_list)
         result_list = list(set(result_list))
         result_list.sort()
@@ -233,21 +208,10 @@ class JsonHandler():
 
         return period_stats_dict
 
-
-    def _check_ign(self, discord_id: str) -> str:
-        """
-        Check if IGN is saved with discordId.
-
-        Parameters
-        ----------
-        discord_id : str
-            User's discord id
-
-        Return
-        ----------
-        ign : str
-            User's wows IGN
-            If it is not registered, it returns None
+    def _check_ign(self, discord_id):
+        """Check if IGN is saved with discordId.
+           Return value:
+               ign = (str or None)
         """
         with open(self.json_file, 'r') as json_file:
             json_data = json.load(json_file)
@@ -258,39 +222,21 @@ class JsonHandler():
 
         return ign
 
-
-    def _check_discord_id(self, ign: str) -> str:
-        """
-        Return discordId from ign.
-
-        Parameters
-        ----------
-        ign : str
-            User's wows IGN
-
-        Return
-        ----------
-        discord_id : str
-            User's discord id.
-            If it is not registered, it returns None
+    def _check_discord_id(self, ign):
+        """Return discordId from ign
         """
         json_data = self._open_json()
         try:
             discord_id = [k for k, v in json_data["IGN"].items() if v == ign][0]
         except IndexError:
             discord_id = None
-
+        
         return discord_id
+        
 
 
-    def _open_json(self) -> dict:
-        """
-        Open json file and return it as dict type.
-
-        Return
-        ----------
-        json_data : dict
-            Return the contents of the userDict.json as dict
+    def _open_json(self):
+        """Open json file and return it as dict type.
         """
         with open(self.json_file, 'r') as json_file:
             try:
@@ -302,7 +248,7 @@ class JsonHandler():
 
         return json_data
 
-
 if __name__ == '__main__':
     JH = JsonHandler()
     print(JH.period_stats())
+    time.sleep(3000)
