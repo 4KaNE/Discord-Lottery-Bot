@@ -1,0 +1,7 @@
+﻿[default]
+bot_token =
+channel_id =
+command_set_ign = !setIGN
+command_kuji = !kuzi !kuji
+kuji_first_day =
+kuji_last_day =
