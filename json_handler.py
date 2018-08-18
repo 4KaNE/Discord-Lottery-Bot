@@ -3,6 +3,7 @@ import json
 import datetime
 import time
 
+
 class JsonHandler():
     """Class to read and write json file.
     """
@@ -38,7 +39,6 @@ class JsonHandler():
             sort_keys=True, separators=(',', ': '))
 
         return change
-
 
     def add_result(self, discord_id, result):
         """Save lottery result in json file.
@@ -96,54 +96,43 @@ class JsonHandler():
                     "pd_date": "2018/7/22",
                     "players": 50,
                     "days_left",
-                    "first": {
-                        "id": "xxxxxxxxxxxxxxxxxx",
-                        "result": 300000
-                    }
+                    "ranks": [
+                        [1
+                         "xxxxxxxxxxxxxxxxxx",
+                         300000]
+                    ]
                     2nd3rd4th5th}
         """
         pd_stats_dict = {}
         now = datetime.datetime.now()
         yesterday = now - datetime.timedelta(days=1)
-        pd_key = yesterday.strftime('%Y/%m/%d') 
+        pd_key = yesterday.strftime('%Y/%m/%d')
         pd_stats_dict["pd_date"] = pd_key
-        days_left = (self.last_day - now).days + 1
+        days_left = (self.last_day - now.date()).days + 1
         pd_stats_dict["days_left"] = days_left
-        pd_result_dict = {}
+        pd_result_list = []
         json_data = self._open_json()
+
         for ign in json_data["Lottery_results"].keys():
             pd_userdata = json_data["Lottery_results"][ign].get(pd_key)
             if pd_userdata is not None:
-                pd_result_dict[ign] = pd_userdata["result"]
+                # 昨日のIGNと値をdictに格納
+                pd_result_list.append([ign, pd_userdata["result"], pd_userdata["time"]])
 
-        pd_result_list = pd_result_dict.values()
-        pd_result_list = list(pd_result_list)
         pd_stats_dict["players"] = len(pd_result_list)
-        pd_result_list = list(set(pd_result_list))#重複要素の削除
-        pd_result_list.sort()
-        pd_result_list.reverse()#数値が大きい順
-        
+        pd_stats_dict["ranks"] = []
+
+        # ランク順で昨日のデータを取得
         count = 0
-        while count < 5:
-            result_value = pd_result_list[count]
-            result_keys = [k for k, v in pd_result_dict.items() if v == result_value]
-            for result_ign in result_keys:
-                count += 1
-                user_dict = {}
-                user_dict["id"] = self._check_discord_id(result_ign)
-                user_dict["result"] = result_value
-                if count == 1:
-                    pd_stats_dict["first"] = user_dict
-                elif count == 2:
-                    pd_stats_dict["second"] = user_dict
-                elif count == 3:
-                    pd_stats_dict["third"] = user_dict
-                elif count == 4:
-                    pd_stats_dict["fourth"] = user_dict
-                elif count == 5:
-                    pd_stats_dict["fifth"] = user_dict
-                else:
-                    pass
+        for v in sorted(pd_result_list, key=lambda x: (-x[1], x[2], x[0])):
+            # ソート順確認
+            self.logger.info(f"result={v[1]}、time={v[2]}、id={v[0]}")
+
+            count += 1
+            pd_stats_dict["ranks"].append([count, self._check_discord_id(v[0]), v[1]])
+
+            if count >= self.config.rank_count:
+                break
 
         return pd_stats_dict
 
@@ -153,59 +142,43 @@ class JsonHandler():
                 period_stats_dict = {
                     "players": 50,
                     "number_of_lotteries": 
-                    "first": {
-                        "id": "xxxxxxxxxxxxxxxxxx",
-                        "result": 300000
-                    }
+                    "ranks": [
+                        [1
+                         "xxxxxxxxxxxxxxxxxx",
+                         300000]
+                    ]
                     2nd3rd4th5th}
         """
         period_stats_dict = {}
         result_list = []
-        result_dict = {}
         date_key_list = self.config.kuji_days
         json_data = self._open_json()
-        period_stats_dict["players"] = len(json_data["Lottery_results"])
+
         for ign in json_data["Lottery_results"].keys():
             for date_key in date_key_list:
-                date_userdata = json_data["Lottery_results"][ign].get(date_key)
+                key = date_key.strftime('%Y/%m/%d')
+                date_userdata = json_data["Lottery_results"][ign].get(key)
                 if date_userdata is not None:
-                    result_list.append(date_userdata["result"])
-                    if str(date_userdata["result"]) in result_dict:
-                        ign_list = result_dict[str(date_userdata["result"])]
-                        ign_list.append(ign)
-                        result_dict[str(date_userdata["result"])] = ign_list
-                        print("重複", date_userdata["result"])
-                    else:
-                        ign_list = []
-                        ign_list.append(ign)
-                        result_dict[str(date_userdata["result"])] = ign_list
-        
+                    # 期間中のIGNと値と時刻をlistに格納
+                    result_list.append([ign, date_userdata["result"], date_key, date_userdata["time"]])
+
+        period_stats_dict["players"] = len(json_data["Lottery_results"])
         period_stats_dict["number_of_lotteries"] = len(result_list)
-        result_list = list(set(result_list))
-        result_list.sort()
-        result_list.reverse()
+        period_stats_dict["ranks"] = []
 
+        # ランク順で期間中のデータを取得
         count = 0
-        while count < 5:
-            result_key = result_list[count]
-            for result_ign in result_dict[str(result_key)]:
-                count += 1
-                user_dict = {}
-                user_dict["id"] = self._check_discord_id(result_ign)
-                user_dict["result"] = result_key
-                if count == 1:
-                    period_stats_dict["first"] = user_dict
-                elif count == 2:
-                    period_stats_dict["second"] = user_dict
-                elif count == 3:
-                    period_stats_dict["third"] = user_dict
-                elif count == 4:
-                    period_stats_dict["fourth"] = user_dict
-                elif count == 5:
-                    period_stats_dict["fifth"] = user_dict
-                else:
-                    pass
+        for v in sorted(result_list, key=lambda x: (-x[1], x[2], x[3], x[0])):
+            # ソート順確認
+            self.logger.info(f"result={v[1]}、day={v[2]}、time={v[3]}、id={v[0]}")
 
+            count += 1
+            period_stats_dict["ranks"].append([count, self._check_discord_id(v[0]), v[1]])
+
+            if count >= self.config.rank_count:
+                break
+
+        self.logger.info(period_stats_dict["ranks"])
         return period_stats_dict
 
     def _check_ign(self, discord_id):
@@ -232,8 +205,6 @@ class JsonHandler():
             discord_id = None
         
         return discord_id
-        
-
 
     def _open_json(self):
         """Open json file and return it as dict type.
@@ -247,6 +218,7 @@ class JsonHandler():
                 print("args:" + str(error.args))
 
         return json_data
+
 
 if __name__ == '__main__':
     JH = JsonHandler()

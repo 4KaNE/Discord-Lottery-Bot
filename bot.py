@@ -1,12 +1,9 @@
 """Botメインプログラム"""
 import asyncio
-import re
 import datetime
-
 import aiohttp
 from numpy.random import randint
 import discord
-
 import json_handler
 import output_battle_results as OBR
 import bot_config
@@ -22,6 +19,47 @@ JH = json_handler.JsonHandler(logger, config)
 # </editor-fold>
 
 
+def command_previous_rank():
+    pd_stats_dict = JH.calc_previous_day_stats()
+
+    pd_date = pd_stats_dict["pd_date"]
+    players = pd_stats_dict["players"]
+    ranks = pd_stats_dict["ranks"]
+    days_left = pd_stats_dict["days_left"]
+
+    msg = (f"{pd_date}の結果\n"
+           f"くじを引いたプレイヤー： {players}人\n"
+           f"日別ランキングTop{config.rank_count}\n")
+
+    for x in ranks:
+        damage = "{:,}".format(x[2])
+        msg += f"{x[0]}.<@{x[1]}> {damage}ダメージ\n"
+
+    msg += f"イベント終了まで後{days_left}日"
+    return msg
+
+
+def command_rank():
+    period_stats_dict = JH.period_stats()
+
+    players = period_stats_dict["players"]
+    number_of_lotteries = period_stats_dict["number_of_lotteries"]
+    ranks = period_stats_dict["ranks"]
+    first_day = config.kuji_first_day.strftime('%Y/%m/%d')
+    last_day = config.kuji_last_day.strftime('%Y/%m/%d')
+
+    msg = (f"イベント({first_day}～{last_day})の結果\n"
+           f"くじを引いたプレイヤー： {players}人\n"
+           f"くじが引かれた回数： {number_of_lotteries}回\n"
+           f"ランキングTop{config.rank_count}\n")
+
+    for x in ranks:
+        damage = "{:,}".format(x[2])
+        msg += f"{x[0]}.<@{x[1]}> {damage}ダメージ\n"
+
+    return msg
+
+
 @CLIENT.event
 async def execute_regurary():
     """定期的に実行する処理
@@ -29,36 +67,40 @@ async def execute_regurary():
     while True:
         now = datetime.datetime.now()
         if now.hour == 0 and now.minute == 0:
-            pd_stats_dict = JH.calc_previous_day_stats()
-            #メンションにしたいならmsgの先頭に@everyoneを追記
-            msg = """
-            \n{}の結果
-            \nくじを引いたプレイヤー： {}人
-            \n日別ランキングTop5
-            \n1. <@{}> {}ダメージ
-            \n2. <@{}> {}ダメージ
-            \n3. <@{}> {}ダメージ
-            \n4. <@{}> {}ダメージ
-            \n5. <@{}> {}ダメージ
-            \nイベント終了まで後{}日
-            """.format(pd_stats_dict["pd_date"], pd_stats_dict["players"],\
-            pd_stats_dict["first"]["id"], pd_stats_dict["first"]["result"],\
-            pd_stats_dict["second"]["id"], pd_stats_dict["second"]["result"],\
-            pd_stats_dict["third"]["id"], pd_stats_dict["third"]["result"],\
-            pd_stats_dict["fourth"]["id"], pd_stats_dict["fourth"]["result"],\
-            pd_stats_dict["fifth"]["id"], pd_stats_dict["fifth"]["result"],\
-            pd_stats_dict["days_left"])
+            if now.date() == config.kuji_first_day:
+                command_kuji = "` または `".join(config.command_kuji)
 
-            try:
-                await CLIENT.send_message(CHANNEL, msg)
-            except discord.HTTPException:
-                logger.error("送れなかった")
-            except aiohttp.errors.ClientOSError:
-                logger.error("接続失敗　ClientOSError")
-            except asyncio.TimeoutError:
-                logger.error("接続失敗　Timeout")
+                logger.info(config.command_set_ign)
+                msg = (f"イベントスタートです!\n"
+                       f"\n"
+                       f"`{command_kuji}`とこのチャンネルに撃つことでランダムにダメージが入ります。\n"
+                       f"くじの結果は日替わりで、同じ日に何度引いてもダメージは変わりません!\n"
+                       f"\n"
+                       f"また、イベントの参加には下記のコマンドでおふねのプレイヤーネーム登録が必要です。\n"
+                       f"```{config.command_set_ign} WoWs_In_Game_Name```"
+                       f"登録したプレイヤーネームは後から同じコマンドで変更することができます。")
 
-        await asyncio.sleep(60)
+            elif now.date() == (config.kuji_last_day + datetime.timedelta(days=1)):
+                msg = command_rank()
+
+            elif config.kuji_first_day < now.date() <= config.kuji_last_day:
+                msg = command_previous_rank()
+            else:
+                msg = None
+
+            if msg is not None:
+                try:
+                    logger.info(msg)
+                    await CLIENT.send_message(CHANNEL, msg)
+                except discord.HTTPException:
+                    logger.error("送れなかった")
+                except aiohttp.errors.ClientOSError:
+                    logger.error("接続失敗　ClientOSError")
+                except asyncio.TimeoutError:
+                    logger.error("接続失敗　Timeout")
+
+        wait = 60 - now.second
+        await asyncio.sleep(wait)
 
 
 @CLIENT.event
@@ -80,7 +122,32 @@ async def on_message(message):
     split_content = message.content.split()
     command = split_content[0]
 
-    if command in config.command_set_ign:
+    now = datetime.datetime.now()
+    if command in config.command_help or \
+            command in config.command_set_ign or \
+            config.kuji_first_day <= now.date() <= config.kuji_last_day:
+        pass
+    else:
+        first_day = config.kuji_first_day.strftime('%Y/%m/%d')
+        last_day = config.kuji_last_day.strftime('%Y/%m/%d')
+        res = f"イベント期間は{first_day}～{last_day}です。"
+        await CLIENT.send_message(message.channel, res)
+        logger.info(res)
+        return
+
+    if command in config.command_help:
+        first_day = config.kuji_first_day.strftime('%Y/%m/%d')
+        last_day = config.kuji_last_day.strftime('%Y/%m/%d')
+
+        res = (f"イベント期間は{first_day}～{last_day}です。\n"
+               f"くじを引く前に{config.command_set_ign}でIGNと紐づけてください。\n"
+               f"くじの結果は日替わりで、同じ日に何度引いてもダメージは変わりません!\n"
+               f"ランキングはダメージ降順、日時昇順、ID順となります。同じランクはありません。")
+
+        await CLIENT.send_message(message.channel, res)
+        logger.info(res)
+
+    elif command in config.command_set_ign:
         if len(split_content) >= 2:
             change = JH.set_ign(message.author.id, split_content[1])
             if change is True:
@@ -106,16 +173,28 @@ async def on_message(message):
                 buttle_results = OBR.output_battle_results(result)
                 res = "{} 本日のくじを引きました！ [{}]\
                 \nあなたの与ダメージは{}です！\
-                \n{}".format(mention, date, result, buttle_results)
+                \n{}".format(mention, date, "{:,}".format(result), buttle_results)
 
             else:
                 res = "{} 本日のくじはすでに引かれています!\
-                \nあなたの与ダメージは{}です！".format(mention, today_result)
+                \nあなたの与ダメージは{}です！".format(mention, "{:,}".format(today_result))
 
         else:
             res = "{} DiscordIDとIGNの紐づけが完了していません！先に\
                   \n```!setIGN WoWs_In_Game_Name```\
                   \nでIGNの登録をお願いします。".format(mention)
+
+        await CLIENT.send_message(message.channel, res)
+        logger.info(res)
+
+    elif command in config.command_previous_rank:
+        res = command_previous_rank()
+
+        await CLIENT.send_message(message.channel, res)
+        logger.info(res)
+
+    elif command in config.command_rank:
+        res = command_rank()
 
         await CLIENT.send_message(message.channel, res)
         logger.info(res)
