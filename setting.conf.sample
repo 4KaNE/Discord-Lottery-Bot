@@ -1,7 +1,10 @@
 ﻿[default]
 bot_token =
 channel_id =
+command_help = !help
 command_set_ign = !setIGN
-command_kuji = !kuzi !kuji
+command_kuji = !kuji !kuzi
+command_previous_rank = !prerank
+command_rank = !rank
 kuji_first_day =
-kuji_last_day =
+kuji_last_day = 
