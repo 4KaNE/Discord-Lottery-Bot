@@ -2,9 +2,19 @@
 import json
 import datetime
 import time
+from enum import IntEnum, auto
 
 
-class JsonHandler():
+class Status(IntEnum):
+    NONE = auto()
+    INSERT = auto()
+    UPDATE = auto()
+    NO_UPDATE = auto()
+    IGN_KEY_ERROR = auto()
+    EXCEPTION = auto()
+
+
+class JsonHandler:
     """Class to read and write json file.
     """
     def __init__(self, logger, config):
@@ -22,23 +32,41 @@ class JsonHandler():
         """
         json_data = self._open_json()
 
-        if discord_id in json_data["IGN"]:
-            change = True
+        # IGNの判定を行う
+        ign_dict = dict(json_data["IGN"])
+        if discord_id in ign_dict.keys():
             former_ign = json_data["IGN"][discord_id]
+            if former_ign != ign:
+                if ign in ign_dict.values():
+                    can_execute = Status.IGN_KEY_ERROR
+                else:
+                    can_execute = Status.UPDATE
+            else:
+                can_execute = Status.NO_UPDATE
+        else:
+            can_execute = Status.INSERT
+
+        # IGN変更の場合、すでに登録されたresultsを差し替える
+        if can_execute == Status.UPDATE:
             if former_ign in json_data["Lottery_results"]:
-                user_result = json_data["Lottery_results"][former_ign]
+                user_result = dict(json_data["Lottery_results"][former_ign])
                 del json_data["Lottery_results"][former_ign]
                 json_data["Lottery_results"][ign] = user_result
 
-        else:
-            change = False
+        if can_execute == Status.INSERT or can_execute == Status.UPDATE:
+            json_data["IGN"][discord_id] = ign
+            try:
+                with open(self.json_file, 'w') as json_file:
+                    json.dump(json_data, json_file, ensure_ascii=False, indent=4,
+                              sort_keys=True, separators=(',', ': '))
+            except json.JSONDecodeError as e:
+                self.logger.error(f'JSONDecodeError: {e}')
+                can_execute = Status.EXCEPTION
+            except FileNotFoundError as e:
+                self.logger.error(f'FileNotFoundError: {e}')
+                can_execute = Status.EXCEPTION
 
-        json_data["IGN"][discord_id] = ign
-        with open(self.json_file, 'w') as json_file:
-            json.dump(json_data, json_file, ensure_ascii=False, indent=4,\
-            sort_keys=True, separators=(',', ': '))
-
-        return change
+        return can_execute
 
     def add_result(self, discord_id, result):
         """Save lottery result in json file.
