@@ -148,16 +148,25 @@ async def on_message(message):
         logger.info(res)
 
     elif command in config.command_set_ign:
+        res = None
         if len(split_content) >= 2:
-            change = JH.set_ign(message.author.id, split_content[1])
-            if change is True:
+            r = JH.set_ign(message.author.id, split_content[1])
+            if r == json_handler.Status.UPDATE:
                 res = "{} IGNを[{ign}]に変更しました！" \
                     .format(mention, ign=split_content[1])
-            else:
+            elif r == json_handler.Status.INSERT:
                 res = "{} IGNを[{ign}]で登録しました！" \
                     .format(mention, ign=split_content[1])
-
-        else:
+            elif r == json_handler.Status.NO_UPDATE:
+                res = "{} IGN[{ign}]は変更の必要がありません！" \
+                    .format(mention, ign=split_content[1])
+            elif r == json_handler.Status.IGN_KEY_ERROR:
+                res = "{} IGN[{ign}]は既に使われています！" \
+                    .format(mention, ign=split_content[1])
+            elif r == json_handler.Status.EXCEPTION:
+                res = "{} IGN[{ign}]の更新に失敗しました！" \
+                    .format(mention, ign=split_content[1])
+        if res is None:
             res = "{} IGNを判別できませんでした。入力に誤りがないか確認してください。\
             \n```!setIGN WoWs_In_Game_Name```".format(mention)
 
@@ -200,4 +209,11 @@ async def on_message(message):
         logger.info(res)
 
 CLIENT.loop.create_task(execute_regurary())
-CLIENT.run(config.bot_token)
+
+try:
+    CLIENT.run(config.bot_token)
+except Exception as e:
+    logger.error(f'CLIENT.run Error:{e}')
+    exit(e)
+finally:
+    logger.info(f'CLIENT.run end')
